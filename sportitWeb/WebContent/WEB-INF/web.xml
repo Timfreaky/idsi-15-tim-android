@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>SportIt</display-name>
+  <servlet>
+    <servlet-name>ServletLocation</servlet-name>
+    <servlet-class>ch.unige.idsi.sportit.servlet.ServletLocation</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Formulaire</servlet-name>
+    <servlet-class>ch.unige.idsi.sportit.servlet.Formulaire</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletLocation</servlet-name>
+    <url-pattern>/carte</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Formulaire</servlet-name>
+    <url-pattern>/adresseUtilisateur</url-pattern>
+  </servlet-mapping>
+</web-app>
