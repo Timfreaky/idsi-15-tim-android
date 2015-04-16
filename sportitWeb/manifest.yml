@@ -1,0 +1,10 @@
+---
+applications:
+- name: sportit
+  memory: 512M
+  host: sportitnew
+  domain: cfapps.io
+  env: {
+    }
+  services: {
+    }
