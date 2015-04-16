@@ -5,26 +5,22 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import ch.unige.idsi.sportit.beans.BeanInfrastructure;
-import javafx.scene.chart.PieChart.Data;
 
 public class BeansInfra {
 
-String csvFile = "UNI_INSTA_SPORT_LIEUX.csv";
-BufferedReader br = null;
-String line = "";
-
-	List<BeanInfrastructure> infrastructures = new ArrayList<BeanInfrastructure>();
+	String csvFile = "UNI_INSTA_SPORT_LIEUX.csv";
+	BufferedReader br = null;
+	String line = "";
+	ArrayList<BeanInfrastructure> infrastructures = new ArrayList<BeanInfrastructure>();
+	
+	
 	try {
  
 		br = new BufferedReader(new FileReader(csvFile));
 		while ((line = br.readLine()) != null) {
- 
-		        // use comma as separator
 			String[] splitted = line.split(";");
-			
 			BeanInfrastructure infrastructure = new BeanInfrastructure();
 			infrastructure.setnomInfra(splitted[0]);
 			infrastructure.setlatitude(splitted[9]);
@@ -34,5 +30,9 @@ String line = "";
  
 		}
 	}
+	catch (Exception e){
+		//some exception information
+		}
+}
 }
 	
