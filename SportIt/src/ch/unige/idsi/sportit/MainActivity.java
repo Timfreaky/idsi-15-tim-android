@@ -1,52 +1,49 @@
 package ch.unige.idsi.sportit;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+
+import android.app.Application;
+import android.content.res.AssetManager;
+import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
+import android.location.LocationProvider;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
-import com.google.android.maps.MyLocationOverlay;
-
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
-import android.content.Intent;
-import android.location.Location;
-
-import com.google.android.gms.location.LocationListener;
-
-import android.location.LocationManager;
-import android.location.LocationProvider;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 public class MainActivity extends FragmentActivity implements android.location.LocationListener, OnMapReadyCallback {
 	
-	private SupportMapFragment mapFragment;
 	private LocationManager lm;
 	private double latitude;
 	private double longitude;
 	private double altitude;
 	private float accuracy;
 	private GoogleMap map;
-	private Marker marker;
-	
-	
-	
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Application app = getApplication();
+		//requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+           // WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_main);
 		GoogleMapOptions mapOptions = new GoogleMapOptions();
 		
@@ -57,11 +54,6 @@ public class MainActivity extends FragmentActivity implements android.location.L
 		map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
 		map.setMyLocationEnabled(true);
 		map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-		
-		//myLocation = new MyLocationOverlay(getApplicationContext(), map);
-		
-		//mc = mapFragment.getController();
-		//mc.setZoom(17);
 		
 	}
 	@Override
@@ -98,9 +90,27 @@ public class MainActivity extends FragmentActivity implements android.location.L
 		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
 		map.animateCamera(cameraUpdate);
 		lm.removeUpdates(this);
+		PathParser parser = new PathParser();
+		AssetManager mng = getAssets();
+		try {
+			InputStream str = mng.open("doc.kml");
+			ArrayList<ArrayList<LatLng>> list = parser.getCoordinateArrays(str);
+			for (ArrayList<LatLng> arrayList : list) {
+				PolylineOptions rectOptions = new PolylineOptions();
+				for (LatLng latLong : arrayList) {
+					//System.out.println(latLng.latitude + " - " + latLng.longitude);
+					LatLng temp = new LatLng(latLong.longitude, latLong.latitude);
+					rectOptions.add(temp);
+				}
+				Polyline polyline = map.addPolyline(rectOptions);
+				polyline.setWidth(10);
+				polyline.setColor(Color.RED);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		//marker = map.addMarker(new MarkerOptions().title("Vous êtes ici").position(latLng));
-		//marker.setPosition(new LatLng(latitude, longitude));
 	}
 	
 	@Override
@@ -143,6 +153,7 @@ public class MainActivity extends FragmentActivity implements android.location.L
 	    /*map.addMarker(new MarkerOptions()
         .position(new LatLng(0, 0))
         .title("Marker"));*/
+		//
 	}
 
 	@Override
