@@ -1,14 +1,21 @@
-package ch.unige.idsi.sportit.parsers;
+package ch.unige.idsi.sportit.servlet;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import ch.unige.idsi.sportit.beans.BeanInfrastructure;
 
-public class BeansInfra {
+public class ServletInfra extends HttpServlet {
+
+	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
+		
 
 	String csvFile = "UNI_INSTA_SPORT_LIEUX.csv";
 	BufferedReader br = null;
@@ -33,6 +40,12 @@ public class BeansInfra {
 	catch (Exception e){
 		//some exception information
 		}
-}
+
+
+	request.setAttribute("infrastructures", infrastructures);
+
+	this.getServletContext().getRequestDispatcher( "/WEB-INF/affichageInfra.jsp" ).forward( request, response );
+
+	}
 }
 	

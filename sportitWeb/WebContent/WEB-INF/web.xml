@@ -6,9 +6,17 @@
     <servlet-class>ch.unige.idsi.sportit.servlet.ServletLocation</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>ServletInfra</servlet-name>
+    <servlet-class>ch.unige.idsi.sportit.servlet.ServletInfra</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>Formulaire</servlet-name>
     <servlet-class>ch.unige.idsi.sportit.servlet.Formulaire</servlet-class>
   </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletInfra</servlet-name>
+    <url-pattern>/infrastructures</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ServletLocation</servlet-name>
     <url-pattern>/carte</url-pattern>
