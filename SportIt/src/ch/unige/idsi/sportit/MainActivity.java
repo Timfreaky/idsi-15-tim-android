@@ -153,7 +153,7 @@ public class MainActivity extends FragmentActivity implements android.location.L
 	    /*map.addMarker(new MarkerOptions()
         .position(new LatLng(0, 0))
         .title("Marker"));*/
-			
+		//
 	}
 
 	@Override
