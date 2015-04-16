@@ -5,7 +5,7 @@
         <meta charset="utf-8" />
         <title>SPORTIT à Genève</title>
         <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
-        <script src="/sportit/src/KmlMapParser.js" type="text/javascript"></script>
+        <script src="../KmlMapParser.js" type="text/javascript"></script>
        	<style>
 			.map {
 				width: 650px;
@@ -38,7 +38,7 @@
             map = new google.maps.Map(document.getElementById('sidebarMap'), myOptions);
             <%-- Initialisation du Parser kml--%>
             xml = new KmlMapParser({ map: map,
-                kml: '/sportit/src/doc.kml',
+                kml: '../doc.kml',
                 showSidebar: true,
 				showFolders: true,
 				showRootName: false,
