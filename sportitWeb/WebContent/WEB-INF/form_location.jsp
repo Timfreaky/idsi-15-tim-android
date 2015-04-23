@@ -4,10 +4,11 @@
 	    <head>
 	        <meta charset="utf-8" />
 	        <title>Localisation</title>
+	        <link type="text/css" rel="stylesheet" href="form.css" />
 	    </head>
 	    <body>
 	        <div>
-	            <form method="get" action="carte">
+	            <form method="post" action="carte">
 	                <fieldset>
 	                    <legend>Informations pour la localisation</legend>
 	                    

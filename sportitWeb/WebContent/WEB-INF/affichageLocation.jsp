@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -54,7 +55,7 @@
     </head>
         
     <body onload="initialize()">
-    
+    	<c:out value="${nomInfra}"/>
     	<div class="map-ct"  ></div>
        	<div id="sidebarMap" class="map"></div>
        	<div class="sidebar-ct" ></div>

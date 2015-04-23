@@ -1,14 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-	${infrastructures.nomInfra}
-	
-</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>SPORTIT à Genève</title>
+	</head>
+
+	<body>
+
+		<c:import url="UNI_INSTA_SPORT_LIEUX.gml" varReader="monReader">
+   		<%-- Parse le contenu du fichier XML monDocument.xml dans une variable nommée 'doc' --%>
+   		<x:parse var="infrastructures" doc="${monReader}" />
+   		<x:out select="$infrastructures/featureMember/UNI_INSTA_SPORT_LIEUX/SPORT" />
+		</c:import>
+
+	</body>
 </html>

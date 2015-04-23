@@ -3,8 +3,18 @@ package ch.unige.idsi.sportit.beans;
 public class BeanInfrastructure {
 	
 	String nomInfra;
-	String latitude;
-	String longitude;
+	double latitude;
+	double longitude;
+	
+	public BeanInfrastructure(){
+		
+	}
+	
+	public BeanInfrastructure(String nomInfra, double latitude, double longitude){
+		this.nomInfra = nomInfra;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
 	
 	public void setnomInfra( String nomInfra ) {
 		this.nomInfra = nomInfra;
@@ -14,19 +24,19 @@ public class BeanInfrastructure {
 		return nomInfra;
 	}
 	
-	public void setlatitude( String latitude ) {
+	public void setlatitude( double latitude ) {
 		this.latitude = latitude;
 	}
 	
-	public String getlatitude() {
+	public double getlatitude() {
 		return latitude;
 	}
 	
-	public void setlongitude( String longitude ) {
+	public void setlongitude( double longitude ) {
 		this.longitude = longitude;
 	}
 	
-	public String getlongitude() {
+	public double getlongitude() {
 		return longitude;
 	}
 
