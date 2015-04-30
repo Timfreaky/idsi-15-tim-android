@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import android.app.Application;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -13,9 +12,8 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -25,6 +23,7 @@ import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -40,10 +39,6 @@ public class MainActivity extends FragmentActivity implements android.location.L
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Application app = getApplication();
-		//requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-           // WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_main);
 		GoogleMapOptions mapOptions = new GoogleMapOptions();
 		
@@ -55,6 +50,48 @@ public class MainActivity extends FragmentActivity implements android.location.L
 		map.setMyLocationEnabled(true);
 		map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 		
+		PathParser parser = new PathParser();
+		AssetManager mng = getAssets();
+		try {
+			InputStream str = mng.open("doc.kml");
+			ArrayList<ArrayList<LatLng>> list = parser.getCoordinateArrays(str);
+			for (ArrayList<LatLng> arrayList : list) {
+				PolylineOptions rectOptions = new PolylineOptions();
+				for (LatLng latLong : arrayList) {
+					LatLng temp = new LatLng(latLong.longitude, latLong.latitude);
+					rectOptions.add(temp);
+				}
+				Polyline polyline = map.addPolyline(rectOptions);
+				polyline.setWidth(7);
+				polyline.setColor(Color.YELLOW);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		InfrParser inf = new InfrParser();
+		AssetManager manag = getAssets();
+		
+		try {
+			InputStream str = manag.open("doc_inf.kml");
+			ArrayList<ArrayList<LatLng>> listArr = inf.getCoordinateArrays(str);
+			for (ArrayList<LatLng> arrayList : listArr) {
+				MarkerOptions markerOpt	= new MarkerOptions();
+				for (LatLng latiLngi : arrayList) {
+					LatLng tempo = new LatLng(latiLngi.longitude, latiLngi.latitude);
+					markerOpt.position(tempo);
+					System.out.println(latiLngi.latitude + " - " + latiLngi.longitude);
+				}
+				map.addMarker(markerOpt);
+								
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	@Override
 	protected void onResume() {
@@ -63,9 +100,9 @@ public class MainActivity extends FragmentActivity implements android.location.L
 		lm = (LocationManager) this.getSystemService(LOCATION_SERVICE);
 		
 		if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER))
-				lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, this);
+				lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300000, 0, this);
 		
-		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0, this);
+		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 300000, 0, this);
 	}
 
 	@Override
@@ -90,26 +127,6 @@ public class MainActivity extends FragmentActivity implements android.location.L
 		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
 		map.animateCamera(cameraUpdate);
 		lm.removeUpdates(this);
-		PathParser parser = new PathParser();
-		AssetManager mng = getAssets();
-		try {
-			InputStream str = mng.open("doc.kml");
-			ArrayList<ArrayList<LatLng>> list = parser.getCoordinateArrays(str);
-			for (ArrayList<LatLng> arrayList : list) {
-				PolylineOptions rectOptions = new PolylineOptions();
-				for (LatLng latLong : arrayList) {
-					//System.out.println(latLng.latitude + " - " + latLng.longitude);
-					LatLng temp = new LatLng(latLong.longitude, latLong.latitude);
-					rectOptions.add(temp);
-				}
-				Polyline polyline = map.addPolyline(rectOptions);
-				polyline.setWidth(10);
-				polyline.setColor(Color.RED);
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 	}
 	
@@ -147,6 +164,8 @@ public class MainActivity extends FragmentActivity implements android.location.L
 		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 	}
 	
+	
+	
 	@Override
 	public void onMapReady(GoogleMap arg0) {
 		// TODO Auto-generated method stub
@@ -159,8 +178,9 @@ public class MainActivity extends FragmentActivity implements android.location.L
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.main, menu);
+	    return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -174,5 +194,6 @@ public class MainActivity extends FragmentActivity implements android.location.L
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 
 }

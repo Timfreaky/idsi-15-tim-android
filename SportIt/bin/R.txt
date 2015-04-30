@@ -577,6 +577,7 @@ int string abc_shareactionprovider_share_with 0x7f070035
 int string abc_shareactionprovider_share_with_application 0x7f070034
 int string abc_toolbar_collapse_description 0x7f07002a
 int string accept 0x7f070002
+int string action_search 0x7f07003f
 int string action_settings 0x7f070038
 int string app_name 0x7f070036
 int string common_android_wear_notification_needs_update_text 0x7f070009
