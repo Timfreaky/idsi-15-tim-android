@@ -11,7 +11,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 
-import android.content.res.AssetManager;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -60,7 +59,7 @@ public class PathParser {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-	    System.out.println(allTracks);
+	    //System.out.println(allTracks);
 	    return allTracks;
 	    
 	}
