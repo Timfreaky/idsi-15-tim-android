@@ -8,7 +8,7 @@
 	    </head>
 	    <body>
 	        <div>
-	            <form method="post" action="carte">
+	            <form method="get" action="carte">
 	                <fieldset>
 	                    <legend>Informations pour la localisation</legend>
 	                    
