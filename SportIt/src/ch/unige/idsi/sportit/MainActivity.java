@@ -75,18 +75,27 @@ public class MainActivity extends FragmentActivity implements android.location.L
 		AssetManager manag = getAssets();
 		
 		try {
+			
 			InputStream str = manag.open("doc_inf.kml");
-			ArrayList<ArrayList<LatLng>> listArr = inf.getCoordinateArrays(str);
-			for (ArrayList<LatLng> arrayList : listArr) {
-				MarkerOptions markerOpt	= new MarkerOptions();
-				for (LatLng latiLngi : arrayList) {
-					LatLng tempo = new LatLng(latiLngi.longitude, latiLngi.latitude);
+			InputStream str2 = manag.open("doc_inf.kml");
+			ArrayList<LatLng> listArr = inf.getCoordinateArrays(str);
+			ArrayList<String> listArray = inf.getNamesArrays(str2);
+			
+			int i = 0;
+				
+				for (LatLng latLng : listArr) {
+					
+					MarkerOptions markerOpt	= new MarkerOptions();
+					LatLng tempo = new LatLng(latLng.longitude, latLng.latitude);
 					markerOpt.position(tempo);
-					System.out.println(latiLngi.latitude + " - " + latiLngi.longitude);
-				}
-				map.addMarker(markerOpt);
+					System.out.println(latLng.latitude + " - " + latLng.longitude);
+				
+				
+				map.addMarker(markerOpt)
+				.setTitle(listArray.get(i));
+				i++;
+			}				
 								
-			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -169,10 +178,7 @@ public class MainActivity extends FragmentActivity implements android.location.L
 	@Override
 	public void onMapReady(GoogleMap arg0) {
 		// TODO Auto-generated method stub
-	    /*map.addMarker(new MarkerOptions()
-        .position(new LatLng(0, 0))
-        .title("Marker"));*/
-		//
+	   
 	}
 
 	@Override
