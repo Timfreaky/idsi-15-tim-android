@@ -1,22 +1,22 @@
 package ch.unige.idsi.sportit.roo;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
-import org.springframework.roo.addon.tostring.RooToString;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-@RooJavaBean
-@RooToString
-@RooJpaActiveRecord
+@RequestMapping("/infrastructures/**")
+@Controller
 public class Infrastructures {
 
-    /**
-     */
-    private String name;
+    @RequestMapping(method = RequestMethod.POST, value = "{id}")
+    public void post(@PathVariable Long id, ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) {
+    }
 
-    /**
-     */
-    private double longitude;
-
-    /**
-     */
-    private double latitude;
+    @RequestMapping
+    public String index() {
+        return "infrastructures/index";
+    }
 }
