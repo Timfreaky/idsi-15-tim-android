@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_ch_unige_idsi_finalsportitweb_Infrastructures" items="${infrastructureses}" z="uX1uuGQlzZdBtZEWg1x1wGtKEw0=">
+        <table:table data="${infrastructureses}" id="l_ch_unige_idsi_finalsportitweb_Infrastructures" path="/infrastructureses" z="NLfsjx69YrHTaOa2tIBD3kWspOc=">
+            <table:column id="c_ch_unige_idsi_finalsportitweb_Infrastructures_Name" property="name" z="ZCkZZVKdxNH6NuHMOHI/tC28Hq4="/>
+            <table:column id="c_ch_unige_idsi_finalsportitweb_Infrastructures_Longitude" property="longitude" z="z4qzhZoULYbzx+Zjs/lJ7OqJnOo="/>
+            <table:column id="c_ch_unige_idsi_finalsportitweb_Infrastructures_Latitude" property="latitude" z="nvb1iy4+7ssgmx8AZGi4fRIh9vw="/>
+        </table:table>
+    </page:list>
+</div>

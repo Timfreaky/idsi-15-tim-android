@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
+        <menu:category id="c_infrastructures" z="U6+16YfjJ0aGvSTAAW5eWl1EXgY=">
+            <menu:item id="i_infrastructures_new" messageCode="global_menu_new" url="/infrastructureses?form" z="ecDm6WYzXtLvlZZkny8sq5BWbJk="/>
+            <menu:item id="i_infrastructures_list" messageCode="global_menu_list" url="/infrastructureses?page=1&amp;size=${empty param.size ? 10 : param.size}" z="3+dK2jo/JpSViFcINvm21ZCagk8="/>
+        </menu:category>
+        <menu:category id="c_controller" z="nj8Dm3hojIyIEyPkwE1UMDIs+K8=">
+            <menu:item id="i_controller__cheminspedestresindex_id" messageCode="global_generic" url="/cheminspedestres/index" z="jpmMXvOGzr7ORUUAU4RHambMT24="/>
+        </menu:category>
+    </menu:menu>
+</div>

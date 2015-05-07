@@ -7,5 +7,9 @@
             <menu:item id="i_chemin_new" messageCode="global_menu_new" url="/chemins?form" z="O7hshzAQ9hp57+armexJKpMW9KY="/>
             <menu:item id="i_chemin_list" messageCode="global_menu_list" url="/chemins?page=1&amp;size=${empty param.size ? 10 : param.size}" z="z2sVTUOxnlFFssnZY6gq3GauViw="/>
         </menu:category>
+        <menu:category id="c_controller" z="nj8Dm3hojIyIEyPkwE1UMDIs+K8=">
+            <menu:item id="i_controller__infrastructuresindex_id" messageCode="global_generic" url="/infrastructures/index" z="C+ZaoFqr6516RAr3WPOTbnjT6sA="/>
+            <menu:item id="i_controller__cheminindex_id" messageCode="global_generic" url="/chemin/index" z="mJVVateAlBOG0Xijv0KswvYhTIA="/>
+        </menu:category>
     </menu:menu>
 </div>

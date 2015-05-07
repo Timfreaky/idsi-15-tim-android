@@ -31,3 +31,14 @@ pgp automatic trust
 addon install bundle --bundleSymbolicName org.springframwork.roo.addon.cloud.foundry
 addon install bundle --bundleSymbolicName org.springframework.roo.addon.cloud.foundry
 download status
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-04-30 17:25:22
+web mvc controller --class ~.Infrastructures
+controller class --class ~.Infrastructures
+controller class --class ~.Infrastructures 
+controller class --class ~.CheminController
+controller class --class ~.InfrastructuresController
+web mvc controller --class ~.InfrastructuresController
+web mvc controller --class ~.InfrastructuresController
+hint
+web mvc all --package ch.unige.idsi.sportit.roo
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-04-30 17:48:31
