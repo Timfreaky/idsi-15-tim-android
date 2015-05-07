@@ -41,7 +41,7 @@ public class ParserInfrastructures extends HttpServlet {
 		// TODO Auto-generated method stub
 System.out.println("process start...");
 		
-		final Kml kml = Kml.unmarshal(new File("infrastructures.kml"));
+		final Kml kml = Kml.unmarshal(new File("http://sportitfinal.cfapps.io/infrastructures.kml"));
 		System.out.println("process run");
 		// System.out.println("process run2");
 		final Document document = (Document) kml.getFeature();
