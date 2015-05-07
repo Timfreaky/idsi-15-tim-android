@@ -20,3 +20,5 @@ field string latitude
 field string --fieldName longitude
 hint
 web mvc setup
+hint
+web mvc all --package ch.unige.idsi.sportit.sportitfinal 

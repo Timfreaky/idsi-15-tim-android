@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_ch_unige_idsi_sportit_sportitfinal_Infrastructures" object="${infrastructures}" path="/infrastructureses" z="K8c7vyjbqkjkyZK7Kk9GJ4SXL+8=">
+        <field:display field="name" id="s_ch_unige_idsi_sportit_sportitfinal_Infrastructures_name" object="${infrastructures}" z="79WuPlIgV+Gw5YtOTcCV7+A5CqM="/>
+        <field:display field="latitude" id="s_ch_unige_idsi_sportit_sportitfinal_Infrastructures_latitude" object="${infrastructures}" z="oIgQtiaWrNP4csdwGLGhZd33Vc4="/>
+        <field:display field="longitude" id="s_ch_unige_idsi_sportit_sportitfinal_Infrastructures_longitude" object="${infrastructures}" z="ytD+K9QfabKBf8qe6lQ3B4dsWLE="/>
+    </page:show>
+</div>
