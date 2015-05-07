@@ -2,3 +2,37 @@
 project --topLevelPackage ch.unige.idsi.finalSportitWeb --projectName FinalSportitWeb --java 6 --packaging JAR
 // Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-07 10:08:56
 // Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-07 10:09:00
+hint
+jpa setup --database H2_IN_MEMORY --provider HIBERNATE 
+hint
+web mvc setup
+hint
+hint
+hint
+entity jpa --class Infrastructures
+hint
+field string --fieldName Name
+hint
+field number --fieldName Longitude --type double
+// [failed] field number --fieldName Longitude --type double 
+field number --fieldName Latitude --type double
+hint
+web mvc all --package ch.unige.idsi.finalsportitweb 
+hint
+entity jpa --class CheminsPedestres
+field string --fieldName Name
+field number --type double --fieldName Latitude 
+field number --type double --fieldName Longitude
+hint 
+hint topics
+hint topic_name
+hint
+web mvc controller --class ~.CheminsPedestres 
+web mvc all --package ch.unige.idsi.finalsportitweb
+web mvc controller --class ~.CheminsPedestres 
+hint
+web mvc controller --class ~.CheminsPedestres 
+hint web mvc
+help
+web mvc json all 
+web mvc all --package ch.unige.idsi.finalsportitweb
