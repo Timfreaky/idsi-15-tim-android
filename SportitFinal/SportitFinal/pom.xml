@@ -62,6 +62,11 @@
             <scope>test</scope>
         </dependency>
     <dependency>
+    	<groupId>com.google.maps</groupId>
+    	<artifactId>google-maps-services</artifactId>
+   		<version>0.1.1</version>
+	</dependency>
+    <dependency>
 		<groupId>de.micromata.jak</groupId>
 		<artifactId>JavaAPIforKml</artifactId>
 		<version>2.2.0</version>
@@ -81,6 +86,11 @@
             <artifactId>jcl-over-slf4j</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
+        <dependency>
+    		<groupId>com.google.code.geocoder-java</groupId>
+    		<artifactId>geocoder-java</artifactId>
+   			<version>0.16</version>
+  		</dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>

@@ -89,4 +89,14 @@
     <servlet-name>ParserInfrastructures</servlet-name>
     <url-pattern>/ParserInfrastructures</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Adresse</display-name>
+    <servlet-name>Adresse</servlet-name>
+    <servlet-class>ch.unige.idsi.sportit.sportitfinal.Adresse</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Adresse</servlet-name>
+    <url-pattern>/Adresse</url-pattern>
+  </servlet-mapping>
 </web-app>

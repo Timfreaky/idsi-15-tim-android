@@ -1,13 +1,8 @@
 package ch.unige.idsi.sportit.sportitfinal;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
@@ -46,10 +41,10 @@ public class ParserInfrastructures extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-System.out.println("process start...");
 
 	
-		URL urlkml = new URL("http://sportitfinal.cfapps.io/infrastructures.kml");
+		//Test d'impression
+		/*URL urlkml = new URL("http://sportitfinal.cfapps.io/doc_inf.kml");
 		BufferedReader in = new BufferedReader(
 		new InputStreamReader(urlkml.openStream()));
 		String inputLine;
@@ -62,22 +57,40 @@ System.out.println("process start...");
 	            bw.write(inputLine);
 	        }
 	        in.close();
-	        bw.close();
+	        bw.close();*/
+
+		//Reprise du kml du serveur par son URL
+		URL urlkml = new URL("http://sportitfinal.cfapps.io/doc_inf.kml");
+		URLConnection uc = urlkml.openConnection();
+		uc.connect();
+		InputStream in = uc.getInputStream();
+		//Création d'une File a parser
+		FileOutputStream out = new FileOutputStream("kmlFile.kml");
+		final int BUF_SIZE = 1 << 8;
+		byte[] buffer = new byte[BUF_SIZE];
+		int bytesRead = -1;
+		while((bytesRead = in.read(buffer)) > -1) {
+		    out.write(buffer, 0, bytesRead);
+		}
+		in.close();
+		out.close();
 	    
 	        final Kml kml = Kml.unmarshal("kmlFile.kml");
-			System.out.println("process run");
+
 			final Document document = (Document) kml.getFeature();
 			System.out.println(document.getName());
 	
-	        
+	    //Parsage du kml
 		List<Feature> t = document.getFeature();
         for(Object o : t){
             Folder f = (Folder)o;
             List<Feature> tg = f.getFeature();
             for(Object ftg : tg){
+            	//Reprise du nom
                 Placemark g = (Placemark) ftg;
                 System.out.println(g.getName());                
                 
+                //Reprise des coordonnées
                 Point point = (Point) g.getGeometry();
                 List<Coordinate> coordinates = point.getCoordinates(); 
                 for (Coordinate c : coordinates) 
@@ -97,26 +110,15 @@ System.out.println("process start...");
     
 	}
 	
-//	void ParseKMZ(){
-//		final Kml kml = Kml.unmarshal(new File("test.kmz"));
-//		final Placemark placemark = (Placemark) kml.getFeature();
-//		Point point = (Point) placemark.getGeometry();
-//		List<Coordinate> coordinates = point.getCoordinates();
-//		for (Coordinate coordinate : coordinates) {
-//			System.out.println(coordinate.getLatitude());
-//			System.out.println(coordinate.getLongitude());
-//			System.out.println(coordinate.getAltitude());
-//		}
-//	}
 
     @Transactional
     public void onApplicationEvent(String name, String latitude, String longitude) {
+    	//Insersion des données dans la base de données des Infrastructures créée avec Roo
         Infrastructures infrastructures = new Infrastructures();
         infrastructures.persist();
         infrastructures.setName(name);
         infrastructures.setLatitude(latitude);
         infrastructures.setLongitude(longitude);
-
 	}
 
 	/**
