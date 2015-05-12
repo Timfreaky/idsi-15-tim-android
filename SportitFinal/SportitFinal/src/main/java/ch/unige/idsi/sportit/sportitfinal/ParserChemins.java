@@ -66,24 +66,33 @@ public class ParserChemins extends HttpServlet {
 					.replace("</coordinates>", ""));
 		}
 		
+		//Un chemin est une collection de points
 		ArrayList<ArrayList<Double>> cheminPoint = new ArrayList<ArrayList<Double>>();
 
 		for (int i = 0; i < tracksString.size(); i++) {
 
-			List<Double> point = new ArrayList<Double>();
+			//Un point est une collection de double [lat, lng]
+			ArrayList<Double> point = new ArrayList<Double>();
+			
 			ArrayList<String> oneTrackString = new ArrayList<String>(
 					Arrays.asList(tracksString.get(i).split("\\s+")));
 			for (int k = 1; k < oneTrackString.size(); k++) {
-				point.addAll(Arrays.asList(Double.parseDouble(oneTrackString
-						.get(k).split(",")[0]), (Double
-						.parseDouble(oneTrackString.get(k).split(",")[1]))));
-				System.out.println("Point: " + point);
+				//latitude
+				double lat = Double.parseDouble(oneTrackString
+						.get(k).split(",")[0]);
+				//longitude
+				double lng = Double.parseDouble(oneTrackString.get(k).split(",")[1]);
+				//Point = [lat,lng]
+				//System.out.println("Lat: "+lat);
+				//System.out.println("Long: "+lng);
+				point.add(lat);
+				point.add(lng);
 			}
-			cheminPoint.add((ArrayList<Double>) point);
-			System.out.println("CheminPoint: " + cheminPoint);
+			System.out.println("point");
+			/*cheminPoint.add((ArrayList<Double>) point);
+			System.out.println("CheminPoint: " + point);
+			chemin.setPoints(cheminPoint);*/
 		}
-		chemin.setPoints(cheminPoint);
-		System.out.println("chemin: " + chemin);
 	}
 
 	/**
