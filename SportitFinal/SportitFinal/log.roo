@@ -27,3 +27,38 @@ web mvc all --package ch.unige.idsi.sportit.sportitfinal
 hint
 hint gwt
 download status
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-08 18:23:33
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-09 10:16:22
+hint
+help
+web mvc view --title Address --path / --viewName Address
+hint
+hint web mvc view
+class --class ~.Adresse 
+field string adresseUtilisateur
+hint 
+web mvc controller --class ~.Adresse
+hint
+web mvc scaffold --class ~.Adresse 
+web mvc scaffold --class ~.AdresseController 
+class --class ~.Adresse
+web mvc scaffold --class ~.AdresseController 
+web mvc all --package ch.unige.idsi.sportit.sportitfinal
+web mvc controller --class ~.AdresseController 
+// [failed] web mvc finder add --class ~.AdresseController --formBackingType ~.Adresse
+web mvc scaffold --class ~.AdresseController
+class --class ~.Adresse
+web mvc scaffold --class ~.AdresseController
+web mvc all --package ch.unige.idsi.sportit.sportitfinal 
+web mvc all --package ch.unige.idsi.sportit.sportitfinal.adresse
+class --class ch.unige.idsi.sportit.sportitfinal.Utilisateur 
+field string --fieldName adresse
+hint
+web mvc controller --class ~.Utilisateur 
+hint
+entity jpa --class ~.Utilisateur 
+hint nt
+hint
+web mvc controller --class ~.Utilisateur 
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-09 16:26:45
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-12 12:24:31

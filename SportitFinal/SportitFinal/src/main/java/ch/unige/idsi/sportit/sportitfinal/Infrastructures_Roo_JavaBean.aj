@@ -15,19 +15,19 @@ privileged aspect Infrastructures_Roo_JavaBean {
         this.name = name;
     }
     
-    public String Infrastructures.getLatitude() {
+    public double Infrastructures.getLatitude() {
         return this.latitude;
     }
     
-    public void Infrastructures.setLatitude(String latitude) {
+    public void Infrastructures.setLatitude(double latitude) {
         this.latitude = latitude;
     }
     
-    public String Infrastructures.getLongitude() {
+    public double Infrastructures.getLongitude() {
         return this.longitude;
     }
     
-    public void Infrastructures.setLongitude(String longitude) {
+    public void Infrastructures.setLongitude(double longitude) {
         this.longitude = longitude;
     }
     

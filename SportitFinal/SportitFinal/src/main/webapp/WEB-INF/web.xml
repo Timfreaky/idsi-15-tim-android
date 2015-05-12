@@ -71,16 +71,6 @@
   </error-page>
   <servlet>
     <description></description>
-    <display-name>ParserInfra</display-name>
-    <servlet-name>ParserInfra</servlet-name>
-    <servlet-class>parserInfra.ParserInfra</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ParserInfra</servlet-name>
-    <url-pattern>/ParserInfra</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>ParserInfrastructures</display-name>
     <servlet-name>ParserInfrastructures</servlet-name>
     <servlet-class>ch.unige.idsi.sportit.sportitfinal.ParserInfrastructures</servlet-class>
@@ -88,15 +78,5 @@
   <servlet-mapping>
     <servlet-name>ParserInfrastructures</servlet-name>
     <url-pattern>/ParserInfrastructures</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>Adresse</display-name>
-    <servlet-name>Adresse</servlet-name>
-    <servlet-class>ch.unige.idsi.sportit.sportitfinal.Adresse</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Adresse</servlet-name>
-    <url-pattern>/Adresse</url-pattern>
   </servlet-mapping>
 </web-app>
