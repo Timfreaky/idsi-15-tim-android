@@ -57,26 +57,38 @@ public class ParserInfrastructures extends HttpServlet {
 		String html = buff.toString();
 		// déclaration du document parsé
 		Document doc = Jsoup.parse(html, "", Parser.xmlParser());
-		ArrayList<String> tracksString = new ArrayList<String>();
 
+		
 		// Pour chaque élément, on reprend son nom
+		ArrayList<String> tracksStringName = new ArrayList<String>();
 		for (Element es : doc.select("SimpleData")) {
 			if (es.attr("name").equalsIgnoreCase("TYPE")) {
+				tracksStringName.add(es.toString().replace("<simpledata name=\"TYPE\">", "")
+						.replace("</simpledata>", ""));
 
 				// Ajout du nom dans l'objet infrastructures
-				infrastructures.setName(es.toString()
-						.replace("<SimpleData name=\"TYPE\">", "")
-						.replace("</SimpleData>", ""));
-				System.out.println("name: " + infrastructures);
+				for (int i = 0; i < tracksStringName.size(); i++) {
+					ArrayList<String> onePlaceName = new ArrayList<String>(
+							Arrays.asList(tracksStringName.get(i).split("\\s+")));
+					for (int k = 1; k < onePlaceName.size(); k++) {
+						infrastructures.setName(onePlaceName.get(k));
+					}
+				}
+				
+				//System.out.println("name: " + infrastructures.getName());
 			}
 		}
-		// Pour chaque élément, on reprend ses coordonnées
+		
+		// Pour chaque élément, on reprend les coordonnées dans une arrayList (latitude et longitude)
+		ArrayList<String> tracksString = new ArrayList<String>();
 		for (Element ec : doc.select("coordinates")) {
 			tracksString.add(ec.toString().replace("<coordinates>", "")
 					.replace("</coordinates>", ""));
+			System.out.println(tracksString);
 		}
+		
 		for (int i = 0; i < tracksString.size(); i++) {
-
+		//Séparation des latitudes et des longitudes
 			ArrayList<String> onePlaceString = new ArrayList<String>(
 					Arrays.asList(tracksString.get(i).split("\\s+")));
 			for (int k = 1; k < onePlaceString.size(); k++) {
