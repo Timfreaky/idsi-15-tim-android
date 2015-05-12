@@ -22,7 +22,6 @@ public class InfrParser {
 	}
 
 	public ArrayList<LatLng> getCoordinateArrays(InputStream stream) {
-	    //ArrayList<LatLng> allPlaces = new ArrayList<LatLng>();
 	    ArrayList<LatLng> onePlace = new ArrayList<LatLng>();
 
 	    try {
@@ -82,7 +81,6 @@ public class InfrParser {
 		       
 		        for (Element e : doc.select("SimpleData")) {
 		        	if(e.attr("name").equalsIgnoreCase("TYPE")){
-		        		System.out.println(e.toString());
 		            namesString.add(e.toString().replace("<simpledata name=\"TYPE\">", "").replace("</simpledata>", ""));
 		        	}
 		        }
