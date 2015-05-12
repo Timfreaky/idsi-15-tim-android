@@ -77,10 +77,13 @@ public class ParserChemins extends HttpServlet {
 				point.addAll(Arrays.asList(Double.parseDouble(oneTrackString
 						.get(k).split(",")[0]), (Double
 						.parseDouble(oneTrackString.get(k).split(",")[1]))));
+				System.out.println("Point: " + point);
 			}
 			cheminPoint.add((ArrayList<Double>) point);
+			System.out.println("CheminPoint: " + cheminPoint);
 		}
 		chemin.setPoints(cheminPoint);
+		System.out.println("chemin: " + chemin);
 	}
 
 	/**

@@ -50,6 +50,7 @@ public class ParserInfrastructures extends HttpServlet {
 		String string;
 		while ((string = in.readLine()) != null) {
 			buff.append(string);
+			//System.out.println(string);
 		}
 
 		in.close();
@@ -64,8 +65,9 @@ public class ParserInfrastructures extends HttpServlet {
 
 				// Ajout du nom dans l'objet infrastructures
 				infrastructures.setName(es.toString()
-						.replace("<simpledata name=\"TYPE\">", "")
-						.replace("</simpledata>", ""));
+						.replace("<SimpleData name=\"TYPE\">", "")
+						.replace("</SimpleData>", ""));
+				System.out.println("name: " + infrastructures);
 			}
 		}
 		// Pour chaque élément, on reprend ses coordonnées
