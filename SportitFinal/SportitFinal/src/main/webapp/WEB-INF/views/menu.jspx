@@ -7,5 +7,9 @@
             <menu:item id="i_infrastructures_new" messageCode="global_menu_new" url="/infrastructureses?form" z="ecDm6WYzXtLvlZZkny8sq5BWbJk="/>
             <menu:item id="i_infrastructures_list" messageCode="global_menu_list" url="/infrastructureses?page=1&amp;size=${empty param.size ? 10 : param.size}" z="3+dK2jo/JpSViFcINvm21ZCagk8="/>
         </menu:category>
+        <menu:category id="c_chemins" z="qylnQ0AU9vmMvY9eLMe2WQ69h74=">
+            <menu:item id="i_chemins_new" messageCode="global_menu_new" url="/cheminses?form" z="8LHRcw4xTB+V/zcokGiPhIwmYpU="/>
+            <menu:item id="i_chemins_list" messageCode="global_menu_list" url="/cheminses?page=1&amp;size=${empty param.size ? 10 : param.size}" z="iFwrO6z/iWljR1Jz2UzL9JHK9qw="/>
+        </menu:category>
     </menu:menu>
 </div>

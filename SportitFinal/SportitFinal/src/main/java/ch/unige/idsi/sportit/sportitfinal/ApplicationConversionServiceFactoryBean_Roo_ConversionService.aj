@@ -4,6 +4,7 @@
 package ch.unige.idsi.sportit.sportitfinal;
 
 import ch.unige.idsi.sportit.sportitfinal.ApplicationConversionServiceFactoryBean;
+import ch.unige.idsi.sportit.sportitfinal.Chemins;
 import ch.unige.idsi.sportit.sportitfinal.Infrastructures;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.core.convert.converter.Converter;
@@ -12,6 +13,30 @@ import org.springframework.format.FormatterRegistry;
 privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService {
     
     declare @type: ApplicationConversionServiceFactoryBean: @Configurable;
+    
+    public Converter<Chemins, String> ApplicationConversionServiceFactoryBean.getCheminsToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<ch.unige.idsi.sportit.sportitfinal.Chemins, java.lang.String>() {
+            public String convert(Chemins chemins) {
+                return "(no displayable fields)";
+            }
+        };
+    }
+    
+    public Converter<Long, Chemins> ApplicationConversionServiceFactoryBean.getIdToCheminsConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Long, ch.unige.idsi.sportit.sportitfinal.Chemins>() {
+            public ch.unige.idsi.sportit.sportitfinal.Chemins convert(java.lang.Long id) {
+                return Chemins.findChemins(id);
+            }
+        };
+    }
+    
+    public Converter<String, Chemins> ApplicationConversionServiceFactoryBean.getStringToCheminsConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, ch.unige.idsi.sportit.sportitfinal.Chemins>() {
+            public ch.unige.idsi.sportit.sportitfinal.Chemins convert(String id) {
+                return getObject().convert(getObject().convert(id, Long.class), Chemins.class);
+            }
+        };
+    }
     
     public Converter<Infrastructures, String> ApplicationConversionServiceFactoryBean.getInfrastructuresToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<ch.unige.idsi.sportit.sportitfinal.Infrastructures, java.lang.String>() {
@@ -38,6 +63,9 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     }
     
     public void ApplicationConversionServiceFactoryBean.installLabelConverters(FormatterRegistry registry) {
+        registry.addConverter(getCheminsToStringConverter());
+        registry.addConverter(getIdToCheminsConverter());
+        registry.addConverter(getStringToCheminsConverter());
         registry.addConverter(getInfrastructuresToStringConverter());
         registry.addConverter(getIdToInfrastructuresConverter());
         registry.addConverter(getStringToInfrastructuresConverter());

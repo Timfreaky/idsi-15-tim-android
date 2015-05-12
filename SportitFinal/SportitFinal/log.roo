@@ -62,3 +62,10 @@ hint
 web mvc controller --class ~.Utilisateur 
 // Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-09 16:26:45
 // Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-12 12:24:31
+entity jpa --class ~.ParserChemins
+field number --fieldName latitude --type double
+field number --fieldName longitude --type double
+entity jpa --class Chemins
+field string --fieldName poins
+web mvc scaffold --class ~.Chemins
+web mvc scaffold --class ~.CheminsController

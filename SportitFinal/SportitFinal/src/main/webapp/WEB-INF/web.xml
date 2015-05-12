@@ -79,4 +79,14 @@
     <servlet-name>ParserInfrastructures</servlet-name>
     <url-pattern>/ParserInfrastructures</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ParserChemins</display-name>
+    <servlet-name>ParserChemins</servlet-name>
+    <servlet-class>ch.unige.idsi.sportit.sportitfinal.ParserChemins</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ParserChemins</servlet-name>
+    <url-pattern>/ParserChemins</url-pattern>
+  </servlet-mapping>
 </web-app>
