@@ -50,7 +50,7 @@ public class ParserInfrastructures extends HttpServlet {
 		String string;
 		while ((string = in.readLine()) != null) {
 			buff.append(string);
-			//System.out.println(string);
+			// System.out.println(string);
 		}
 
 		in.close();
@@ -58,12 +58,14 @@ public class ParserInfrastructures extends HttpServlet {
 		// déclaration du document parsé
 		Document doc = Jsoup.parse(html, "", Parser.xmlParser());
 
-		
+		/************* NOM INFRASTRUCTURES OK ***************************/
 		// Pour chaque élément, on reprend son nom
 		ArrayList<String> tracksStringName = new ArrayList<String>();
+		String nomInfra = new String();
 		for (Element es : doc.select("SimpleData")) {
 			if (es.attr("name").equalsIgnoreCase("TYPE")) {
-				tracksStringName.add(es.toString().replace("<simpledata name=\"TYPE\">", "")
+				tracksStringName.add(es.toString()
+						.replace("<simpledata name=\"TYPE\">", "")
 						.replace("</simpledata>", ""));
 
 				// Ajout du nom dans l'objet infrastructures
@@ -71,65 +73,48 @@ public class ParserInfrastructures extends HttpServlet {
 					ArrayList<String> onePlaceName = new ArrayList<String>(
 							Arrays.asList(tracksStringName.get(i).split("\\s+")));
 					for (int k = 1; k < onePlaceName.size(); k++) {
-						infrastructures.setName(onePlaceName.get(k));
+						nomInfra = onePlaceName.get(k);
 					}
 				}
-				
-				//System.out.println("name: " + infrastructures.getName());
+
+				infrastructures.setName(nomInfra);
+				System.out.println("nom " + nomInfra);
 			}
 		}
-		
-		// Pour chaque élément, on reprend les coordonnées dans une arrayList (latitude et longitude)
+
+		/******************** PROBLEME AVEC LAT ET LONG ******************/
+		/********************PLUSIEURS LAT OU LONG DE SUITE***************/
+		// Pour chaque élément, on reprend les coordonnées dans une arrayList
+		// (latitude et longitude)
 		ArrayList<String> tracksString = new ArrayList<String>();
+		Double latitudeInfra = null;
+		Double longitudeInfra = null;
 		for (Element ec : doc.select("coordinates")) {
 			tracksString.add(ec.toString().replace("<coordinates>", "")
 					.replace("</coordinates>", ""));
-			System.out.println(tracksString);
 		}
-		
 		for (int i = 0; i < tracksString.size(); i++) {
-		//Séparation des latitudes et des longitudes
+			// Reprise des coordonnées de chaque infrastructure dans une
+			// arraylist pour pouvoir les séparer
 			ArrayList<String> onePlaceString = new ArrayList<String>(
 					Arrays.asList(tracksString.get(i).split("\\s+")));
 			for (int k = 1; k < onePlaceString.size(); k++) {
 				// On split la coordonnée en latitude et en longitude
 				// Insertion de la latitude dans l'objet infrastrcutre
-				infrastructures.setLatitude(Double.parseDouble(onePlaceString
-						.get(k).split(",")[0]));
+				latitudeInfra = Double.parseDouble(onePlaceString.get(k).split(
+						",")[0]);
 				// Insertion de la longitude dans l'infrastructures
-				infrastructures.setLongitude(Double.parseDouble(onePlaceString
-						.get(k).split(",")[1]));
+				longitudeInfra = Double.parseDouble(onePlaceString.get(k)
+						.split(",")[1]);
 			}
-
+			infrastructures.setLatitude(latitudeInfra);
+			infrastructures.setLongitude(longitudeInfra);
+			System.out.println("Lat: " + latitudeInfra);
+			System.out.println("Long: " + longitudeInfra);
 		}
+
 	}
 
-	/*
-	 * for (Element e : doc.select("coordinates")) {
-	 * tracksString.add(e.toString().replace("<coordinates>",
-	 * "").replace("</coordinates>", "")); }
-	 * 
-	 * for (int i = 0; i < tracksString.size(); i++) {
-	 * 
-	 * ArrayList<String> onePlaceString = new
-	 * ArrayList<String>(Arrays.asList(tracksString.get(i).split("\\s+"))); for
-	 * (int k = 1; k < onePlaceString.size(); k++) {
-	 * infrastructures.setLatitude(Double.parseDouble
-	 * (onePlaceString.get(k).split(",")[0]));
-	 * infrastructures.setLongitude(Double.parseDouble
-	 * (onePlaceString.get(k).split(",")[1])); }
-	 * 
-	 * }
-	 * 
-	 * for (Element e : doc.select("SimpleData")) {
-	 * if(e.attr("name").equalsIgnoreCase("TYPE")){
-	 * System.out.println(e.toString());
-	 * infrastructures.setName(e.toString().replace
-	 * ("<simpledata name=\"TYPE\">", "").replace("</simpledata>", "")); } }
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); }
-	 * System.out.println(infrastructures);
-	 */
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
