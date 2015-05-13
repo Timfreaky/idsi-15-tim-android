@@ -7,7 +7,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +17,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
+
+import ch.unige.idsi.sportit.LatLng;
+import ch.unige.idsi.sportit.String;
 
 /**
  * Servlet implementation class ParserChemins
@@ -40,11 +42,8 @@ public class ParserChemins extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		//déclaration de mon objet chemins
-		Chemins chemin = new Chemins();
-		// enregistrement des infrastructures
-		chemin.persist();
+
+		ArrayList<ArrayList<ArrayList<Double>>> ensembleChemins = new ArrayList<ArrayList<ArrayList<Double>>>();
 
 		// Reprise du document kml à parser
 		URL urlkml = new URL("http://sportitfinal.cfapps.io/doc.kml");
@@ -65,34 +64,60 @@ public class ParserChemins extends HttpServlet {
 			tracksString.add(e.toString().replace("<coordinates>", "")
 					.replace("</coordinates>", ""));
 		}
+		for (int i = 0; i < tracksString.size(); i++) {
+            ArrayList<Double> lat = new ArrayList<Double>();
+            ArrayList<Double> longi = new ArrayList<Double>();
+            ArrayList<ArrayList<Double>> unChemin = new ArrayList<ArrayList<Double>>();
+            ArrayList<String> oneTrackString = new ArrayList<String>(Arrays.asList(tracksString.get(i).split("\\s+")));
+            for (int k = 1; k < oneTrackString.size(); k++) {
+                lat.add(Double.parseDouble(oneTrackString.get(k).split(",")[0]));
+                longi.add(Double.parseDouble(oneTrackString.get(k).split(",")[1]));
+                latsUnChemin.add(lat);
+                longUnChemin.add(longi);
+            }
+            ensembleChemins.add(unChemin);
+        }
 		
-		//Un chemin est une collection de points
-		ArrayList<ArrayList<Double>> cheminPoint = new ArrayList<ArrayList<Double>>();
+		Chemins chemin = new Chemins();
+		
+		for (int i=0; i<ensembleChemins.size();i++){
+			chemin.persist();
+			chemin.setPoints();
+		}
+
+		// Un chemin est une collection de points
+		/*
+		ArrayList<ArrayList<Double>> cheminPoint = new
+		ArrayList<ArrayList<Double>>();
 
 		for (int i = 0; i < tracksString.size(); i++) {
 
-			//Un point est une collection de double [lat, lng]
+			// Un point est une collection de double [lat, lng]
 			ArrayList<Double> point = new ArrayList<Double>();
-			
+
 			ArrayList<String> oneTrackString = new ArrayList<String>(
 					Arrays.asList(tracksString.get(i).split("\\s+")));
 			for (int k = 1; k < oneTrackString.size(); k++) {
-				//latitude
-				double lat = Double.parseDouble(oneTrackString
-						.get(k).split(",")[0]);
-				//longitude
-				double lng = Double.parseDouble(oneTrackString.get(k).split(",")[1]);
-				//Point = [lat,lng]
-				//System.out.println("Lat: "+lat);
-				//System.out.println("Long: "+lng);
-				point.add(lat);
-				point.add(lng);
+
+				ArrayList<String> oneTrackStringC = new ArrayList<String>(
+				// Les divers points sont séparés par des ",0"
+						Arrays.asList(oneTrackString.get(k).split(",0")));
+				for (int l = 1; l < oneTrackStringC.size(); l++) {
+					// latitude
+					double lat = Double.parseDouble(oneTrackString.get(l)
+							.split(",")[0]);
+					// longitude
+					double lng = Double.parseDouble(oneTrackString.get(l)
+							.split(",")[1]);
+					point.add(lat);
+					point.add(lng);
+					System.out.println("point: " + point);
+				}
+				cheminPoint.add(point);
 			}
-			System.out.println("point");
-			/*cheminPoint.add((ArrayList<Double>) point);
-			System.out.println("CheminPoint: " + point);
-			chemin.setPoints(cheminPoint);*/
 		}
+		System.out.println("CheminPoint: " + cheminPoint);
+		 //chemin.setPoints(cheminPoint);*/
 	}
 
 	/**
