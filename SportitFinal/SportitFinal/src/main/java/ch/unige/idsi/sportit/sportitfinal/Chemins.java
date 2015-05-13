@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
+import com.google.maps.model.LatLng;
 
 @RooJavaBean
 @RooToString
@@ -12,6 +13,8 @@ public class Chemins {
 
     /**
      */
-    private ArrayList<ArrayList<Double>> points;
+    private ArrayList<LatLng> chemin;
+
+
 
 }
