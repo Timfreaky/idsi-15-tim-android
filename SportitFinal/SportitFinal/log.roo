@@ -1,0 +1,98 @@
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-07 16:49:57
+project --topLevelPackage ch.unige.idsi.sportit.sportitfinal --projectName SportitFinal --java 6 --packaging JAR
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-07 16:49:58
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-07 16:50:03
+hint
+jpa setup --provider HIBERNATE --database H2_IN_MEMORY 
+hint
+// [failed] entity jpa --class ch.unige.idsi.sportit.sportitfinal.Infrastructures
+hint
+hint
+// [failed] field string name
+// [failed] field string --fieldName latitude
+// [failed] field string --fieldName longitude
+hint
+hint
+entity jpa --class ~.Infrastructures
+hint
+field string name
+field string latitude
+field string --fieldName longitude
+hint
+web mvc setup
+hint
+web mvc all --package ch.unige.idsi.sportit.sportitfinal 
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-07 17:57:52
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-08 17:09:26
+hint
+hint gwt
+download status
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-08 18:23:33
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-09 10:16:22
+hint
+help
+web mvc view --title Address --path / --viewName Address
+hint
+hint web mvc view
+class --class ~.Adresse 
+field string adresseUtilisateur
+hint 
+web mvc controller --class ~.Adresse
+hint
+web mvc scaffold --class ~.Adresse 
+web mvc scaffold --class ~.AdresseController 
+class --class ~.Adresse
+web mvc scaffold --class ~.AdresseController 
+web mvc all --package ch.unige.idsi.sportit.sportitfinal
+web mvc controller --class ~.AdresseController 
+// [failed] web mvc finder add --class ~.AdresseController --formBackingType ~.Adresse
+web mvc scaffold --class ~.AdresseController
+class --class ~.Adresse
+web mvc scaffold --class ~.AdresseController
+web mvc all --package ch.unige.idsi.sportit.sportitfinal 
+web mvc all --package ch.unige.idsi.sportit.sportitfinal.adresse
+class --class ch.unige.idsi.sportit.sportitfinal.Utilisateur 
+field string --fieldName adresse
+hint
+web mvc controller --class ~.Utilisateur 
+hint
+entity jpa --class ~.Utilisateur 
+hint nt
+hint
+web mvc controller --class ~.Utilisateur 
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-09 16:26:45
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-12 12:24:31
+entity jpa --class ~.ParserChemins
+field number --fieldName latitude --type double
+field number --fieldName longitude --type double
+entity jpa --class Chemins
+field string --fieldName poins
+web mvc scaffold --class ~.Chemins
+web mvc scaffold --class ~.CheminsController
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-12 14:17:08
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-13 17:47:52
+database properties list
+// [failed] database introspect --schema unable-to-obtain-connection  
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-13 18:14:22
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-15 14:37:19
+entity jpa --class MonLatLng
+field number --type double --fieldName latitude
+field number --type double --fieldName longitude
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-15 16:00:22
+entity jpa --class Chemin
+// [failed] field list --fieldName latitude --type Double
+field list --fieldName latitude --type ~.MonLatLng
+field list --fieldName longitude --type ~.MonLatLng
+hint
+web mvc controller --class ~.CheminsController 
+// [failed] web mvc scaffold --class ~.Chemins
+exit
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-15 16:26:06
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-15 16:26:37
+web mvc controller --class ~.Chemins
+entity jpa --class ~.Chemins
+// [failed] field list --fieldName latitude --type double
+field number --fieldName latitude --type double
+field number --fieldName longitude --type double
+web mvc scaffold --class ~.CheminsController
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-15 16:42:53

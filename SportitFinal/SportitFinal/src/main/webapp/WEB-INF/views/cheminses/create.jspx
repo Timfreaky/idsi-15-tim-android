@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:create id="fc_ch_unige_idsi_sportit_sportitfinal_Chemins" modelAttribute="chemins" path="/cheminses" render="${empty dependencies}" z="RrfJRzKUqLSz1S3r1GwJJ3LqOE8=">
+        <field:input field="latitude" id="c_ch_unige_idsi_sportit_sportitfinal_Chemins_latitude" z="lN3LJVZ97cylEYjGHOWoA7j7Ytg="/>
+        <field:input field="longitude" id="c_ch_unige_idsi_sportit_sportitfinal_Chemins_longitude" z="kyJ0Ia5etL4orm5q1f8ay6mtHmM="/>
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_ch_unige_idsi_sportit_sportitfinal_Chemins" render="${not empty dependencies}" z="rDQz4rGnghdLcM7myrEYpheUuaM="/>
+</div>
