@@ -63,16 +63,13 @@ public class ParserInfrastructures extends HttpServlet {
 				nameString.add(es.toString()
 						.replace("<simpledata name=\"TYPE\">", "")
 						.replace("</simpledata>", ""));
-				System.out.println("Name: "+ es.toString()
-						.replace("<simpledata name=\"TYPE\">", "")
-						.replace("</simpledata>", "") + "\n");
 			}
 		}
 		
-		//PROBLEME AVEC LES NOMS!!!
+		/*
 		for (int i = 0; i < nameString.size(); i++) {
 			System.out.println("Name: "+nameString.get(i) + "\n");
-		}
+		}*/
 		
 
 		// Pour chaque élément, on reprend les coordonnées dans une arrayList
@@ -106,15 +103,16 @@ public class ParserInfrastructures extends HttpServlet {
 		}
 
 		//OK!
+		/*
 		for (int i = 0; i< lat.size(); i++){
 			System.out.println("Lat: "+ lat.get(i));
 		}
 		for (int i = 0; i< longi.size(); i++){
 			System.out.println("Long: "+ longi.get(i));
-		}
+		}*/
 		
 		for (int i = 0; i < nameString.size(); i++) {
-			System.out.println("Name: "+nameString.get(i) + " lat: "+ lat.get(i) + " long: " + longi.get(i) );	
+			//System.out.println("Name: "+nameString.get(i) + " lat: "+ lat.get(i) + " long: " + longi.get(i) );	
 			//Toutes les listes doivent avoir la même longeur car pour un nom, une lat et une long!
 			// déclaration de mon objet infrastructure
 			Infrastructures infrastructure = new Infrastructures();
@@ -123,6 +121,8 @@ public class ParserInfrastructures extends HttpServlet {
 			infrastructure.setName(nameString.get(i));
 			infrastructure.persist();	
 		}
+		
+		this.getServletContext().getRequestDispatcher( "/WEB-INF/views/adresse.jsp" ).forward( request, response );
 	}
 
 	/**
