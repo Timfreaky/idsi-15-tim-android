@@ -1,10 +1,11 @@
 package ch.unige.idsi.sportit.sportitfinal;
-import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
-import com.google.maps.model.LatLng;
 
 @RooJavaBean
 @RooToString
@@ -13,8 +14,11 @@ public class Chemins {
 
     /**
      */
-    private ArrayList<LatLng> chemin;
+	@ElementCollection(targetClass=Double.class)
+    private List<Double> latitude;
 
-
-
+    /**
+     */
+	@ElementCollection(targetClass=Double.class)
+    private List<Double> longitude;
 }

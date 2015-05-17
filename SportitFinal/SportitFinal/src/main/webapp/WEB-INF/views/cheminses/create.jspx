@@ -3,7 +3,8 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_ch_unige_idsi_sportit_sportitfinal_Chemins" modelAttribute="chemins" path="/cheminses" render="${empty dependencies}" z="RrfJRzKUqLSz1S3r1GwJJ3LqOE8=">
-        <field:input field="points" id="c_ch_unige_idsi_sportit_sportitfinal_Chemins_points" z="4IDgYe4HLavM4w/BJml94qXZQrU="/>
+        <field:input field="latitude" id="c_ch_unige_idsi_sportit_sportitfinal_Chemins_latitude" z="lN3LJVZ97cylEYjGHOWoA7j7Ytg="/>
+        <field:input field="longitude" id="c_ch_unige_idsi_sportit_sportitfinal_Chemins_longitude" z="kyJ0Ia5etL4orm5q1f8ay6mtHmM="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_ch_unige_idsi_sportit_sportitfinal_Chemins" render="${not empty dependencies}" z="rDQz4rGnghdLcM7myrEYpheUuaM="/>
 </div>

@@ -18,8 +18,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 
-import com.google.maps.model.LatLng;
-
 /**
  * Servlet implementation class ParserChemins
  */
@@ -41,7 +39,8 @@ public class ParserChemins extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		ArrayList<ArrayList<LatLng>> allTracks = new ArrayList<ArrayList<LatLng>>();
+		ArrayList<ArrayList<Double>> allTracksLatitude = new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> allTracksLongitude = new ArrayList<ArrayList<Double>>();
 
 		// Reprise du document kml à parser
 		URL urlkml = new URL("http://sportitfinal.cfapps.io/doc.kml");
@@ -63,26 +62,30 @@ public class ParserChemins extends HttpServlet {
 					.replace("</coordinates>", ""));
 		}
 		for (int i = 0; i < tracksString.size(); i++) {
-			ArrayList<LatLng> oneTrack = new ArrayList<LatLng>();
+			ArrayList<Double> oneTrackLatitude = new ArrayList<Double>();
+			ArrayList<Double> oneTrackLongitude = new ArrayList<Double>();
 
 			ArrayList<String> oneTrackString = new ArrayList<String>(
 					Arrays.asList(tracksString.get(i).split("\\s+")));
 			for (int k = 1; k < oneTrackString.size(); k++) {
-				LatLng latLng = new LatLng(Double.parseDouble(oneTrackString
+				MonLatLng latLng = new MonLatLng(Double.parseDouble(oneTrackString
 						.get(k).split(",")[0]),
 						Double.parseDouble(oneTrackString.get(k).split(",")[1]));
-				oneTrack.add(latLng);
+				oneTrackLatitude.add(latLng.getLatitude());
+				oneTrackLongitude.add(latLng.getLongitude());
 			}
-			allTracks.add(oneTrack);
+			allTracksLatitude.add(oneTrackLatitude);
+			allTracksLongitude.add(oneTrackLongitude);
 		}
 
-		Chemins chemins = new Chemins();
-		chemins.persist();
-		for (int i = 0; i < allTracks.size(); i++) {
-			chemins.setChemin(allTracks.get(i));
-			System.out.println(allTracks.get(i));
+		//Probleme: NotSerializableException: com.google.maps.model.LatLng
+		for (int i = 0; i < allTracksLatitude.size(); i++) {
+			Chemins chemin = new Chemins();
+			chemin.setLatitude(allTracksLatitude.get(i));
+			chemin.setLongitude(allTracksLongitude.get(i));
+			chemin.persist();
+		
 		}
-		//System.out.println("Chemin: "+chemins.getChemins());
 	}
 
 	/**

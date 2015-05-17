@@ -89,4 +89,14 @@
     <servlet-name>ParserChemins</servlet-name>
     <url-pattern>/ParserChemins</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>getAdresse</display-name>
+    <servlet-name>getAdresse</servlet-name>
+    <servlet-class>ch.unige.idsi.sportit.sportitfinal.getAdresse</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getAdresse</servlet-name>
+    <url-pattern>/getAdresse</url-pattern>
+  </servlet-mapping>
 </web-app>

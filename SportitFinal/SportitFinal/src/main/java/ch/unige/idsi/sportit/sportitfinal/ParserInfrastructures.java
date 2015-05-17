@@ -35,9 +35,6 @@ public class ParserInfrastructures extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// déclaration de mon objet infrastructure
-		Infrastructures infrastructures = new Infrastructures();
-
 		// Reprise du document kml à parser
 		URL urlkml = new URL("http://sportitfinal.cfapps.io/doc_inf.kml");
 		URLConnection uc = urlkml.openConnection();
@@ -58,29 +55,28 @@ public class ParserInfrastructures extends HttpServlet {
 		// déclaration du document parsé
 		Document doc = Jsoup.parse(html, "", Parser.xmlParser());
 
-		/************* NOM INFRASTRUCTURES OK ***************************/
 		// Pour chaque élément, on reprend son nom
-		ArrayList<String> tracksStringName = new ArrayList<String>();
+		ArrayList<String> nameString = new ArrayList<String>();
 
 		for (Element es : doc.select("SimpleData")) {
 			if (es.attr("name").equalsIgnoreCase("TYPE")) {
-				tracksStringName.add(es.toString()
+				nameString.add(es.toString()
 						.replace("<simpledata name=\"TYPE\">", "")
 						.replace("</simpledata>", ""));
+				System.out.println("Name: "+ es.toString()
+						.replace("<simpledata name=\"TYPE\">", "")
+						.replace("</simpledata>", "") + "\n");
 			}
 		}
-		// enregistrement des infrastructures
-		for (int i = 0; i < tracksStringName.size(); i++) {
-			System.out.println("Name: "+tracksStringName.get(i));
-			infrastructures.persist();
-			infrastructures.setName(tracksStringName.get(i));
+		
+		//PROBLEME AVEC LES NOMS!!!
+		for (int i = 0; i < nameString.size(); i++) {
+			System.out.println("Name: "+nameString.get(i) + "\n");
 		}
+		
 
-		/******************** PROBLEME AVEC LAT ET LONG ******************/
-		/******************** PLUSIEURS LAT OU LONG DE SUITE ***************/
 		// Pour chaque élément, on reprend les coordonnées dans une arrayList
-		// (latitude et longitude)
-
+		// (latitude et longitude)		
 		ArrayList<String> tracksString = new ArrayList<String>();
 
 		for (Element ec : doc.select("coordinates")) {
@@ -108,15 +104,24 @@ public class ParserInfrastructures extends HttpServlet {
 						.parseDouble(onePlaceString.get(k).split(",")[1]));
 			}
 		}
-		for (int i = 0; i < lat.size(); i++) {
-			System.out.println("lat: "+ lat.get(i));
-			infrastructures.persist();
-			infrastructures.setLatitude(lat.get(i));
+
+		//OK!
+		for (int i = 0; i< lat.size(); i++){
+			System.out.println("Lat: "+ lat.get(i));
 		}
-		for (int i = 0; i < longi.size(); i++) {
-			System.out.println("long: "+ longi.get(i));
-			infrastructures.persist();
-			infrastructures.setLongitude(longi.get(i));
+		for (int i = 0; i< longi.size(); i++){
+			System.out.println("Long: "+ longi.get(i));
+		}
+		
+		for (int i = 0; i < nameString.size(); i++) {
+			System.out.println("Name: "+nameString.get(i) + " lat: "+ lat.get(i) + " long: " + longi.get(i) );	
+			//Toutes les listes doivent avoir la même longeur car pour un nom, une lat et une long!
+			// déclaration de mon objet infrastructure
+			Infrastructures infrastructure = new Infrastructures();
+			infrastructure.setLatitude(lat.get(i));
+			infrastructure.setLongitude(longi.get(i));
+			infrastructure.setName(nameString.get(i));
+			infrastructure.persist();	
 		}
 	}
 

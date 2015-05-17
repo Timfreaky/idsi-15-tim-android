@@ -3,8 +3,6 @@
 
 package ch.unige.idsi.sportit.sportitfinal;
 
-import java.util.ArrayList;
-
 import ch.unige.idsi.sportit.sportitfinal.Infrastructures;
 
 privileged aspect Infrastructures_Roo_JavaBean {

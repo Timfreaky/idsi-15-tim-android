@@ -11,5 +11,8 @@
             <menu:item id="i_chemins_new" messageCode="global_menu_new" url="/cheminses?form" z="8LHRcw4xTB+V/zcokGiPhIwmYpU="/>
             <menu:item id="i_chemins_list" messageCode="global_menu_list" url="/cheminses?page=1&amp;size=${empty param.size ? 10 : param.size}" z="iFwrO6z/iWljR1Jz2UzL9JHK9qw="/>
         </menu:category>
+        <menu:category id="c_controller" z="nj8Dm3hojIyIEyPkwE1UMDIs+K8=">
+            <menu:item id="i_controller__cheminsindex_id" messageCode="global_generic" url="/chemins/index" z="qMTzeo2eExtUhmOH32+0p1c5EfI="/>
+        </menu:category>
     </menu:menu>
 </div>

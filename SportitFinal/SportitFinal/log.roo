@@ -70,3 +70,29 @@ field string --fieldName poins
 web mvc scaffold --class ~.Chemins
 web mvc scaffold --class ~.CheminsController
 // Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-12 14:17:08
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-13 17:47:52
+database properties list
+// [failed] database introspect --schema unable-to-obtain-connection  
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-13 18:14:22
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-15 14:37:19
+entity jpa --class MonLatLng
+field number --type double --fieldName latitude
+field number --type double --fieldName longitude
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-15 16:00:22
+entity jpa --class Chemin
+// [failed] field list --fieldName latitude --type Double
+field list --fieldName latitude --type ~.MonLatLng
+field list --fieldName longitude --type ~.MonLatLng
+hint
+web mvc controller --class ~.CheminsController 
+// [failed] web mvc scaffold --class ~.Chemins
+exit
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-15 16:26:06
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-15 16:26:37
+web mvc controller --class ~.Chemins
+entity jpa --class ~.Chemins
+// [failed] field list --fieldName latitude --type double
+field number --fieldName latitude --type double
+field number --fieldName longitude --type double
+web mvc scaffold --class ~.CheminsController
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-15 16:42:53

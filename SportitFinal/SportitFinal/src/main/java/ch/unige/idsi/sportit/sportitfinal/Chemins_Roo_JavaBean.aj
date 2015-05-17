@@ -4,20 +4,24 @@
 package ch.unige.idsi.sportit.sportitfinal;
 
 import ch.unige.idsi.sportit.sportitfinal.Chemins;
-
-import java.util.ArrayList;
-
-import com.google.maps.model.LatLng;
+import java.util.List;
 
 privileged aspect Chemins_Roo_JavaBean {
     
-
-	public ArrayList<LatLng> Chemins.getChemin() {
-        return this.chemin;
+    public List<Double> Chemins.getLatitude() {
+        return this.latitude;
     }
     
-    public void Chemins.setChemin(ArrayList<LatLng> chemin) {
-        this.chemin = chemin;
+    public void Chemins.setLatitude(List<Double> latitude) {
+        this.latitude = latitude;
+    }
+    
+    public List<Double> Chemins.getLongitude() {
+        return this.longitude;
+    }
+    
+    public void Chemins.setLongitude(List<Double> longitude) {
+        this.longitude = longitude;
     }
     
 }

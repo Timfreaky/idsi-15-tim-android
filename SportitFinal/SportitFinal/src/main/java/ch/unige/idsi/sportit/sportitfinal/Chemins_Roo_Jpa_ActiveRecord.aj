@@ -14,7 +14,7 @@ privileged aspect Chemins_Roo_Jpa_ActiveRecord {
     @PersistenceContext
     transient EntityManager Chemins.entityManager;
     
-    public static final List<String> Chemins.fieldNames4OrderClauseFilter = java.util.Arrays.asList("points");
+    public static final List<String> Chemins.fieldNames4OrderClauseFilter = java.util.Arrays.asList("latitude", "longitude");
     
     public static final EntityManager Chemins.entityManager() {
         EntityManager em = new Chemins().entityManager;

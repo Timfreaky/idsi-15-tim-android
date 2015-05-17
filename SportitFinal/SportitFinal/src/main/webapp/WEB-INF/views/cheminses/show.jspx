@@ -3,6 +3,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <page:show id="ps_ch_unige_idsi_sportit_sportitfinal_Chemins" object="${chemins}" path="/cheminses" z="uER1TTZ5f0Valxc50Wz+ccIZ7+E=">
-        <field:display field="points" id="s_ch_unige_idsi_sportit_sportitfinal_Chemins_points" object="${chemins}" z="hItPJ3G2Z1YD0Ok97ZJqBRX/LcY="/>
+        <field:display field="latitude" id="s_ch_unige_idsi_sportit_sportitfinal_Chemins_latitude" object="${chemins}" z="HRCgFqIn06ooplpeoYDLKdtrWbc="/>
+        <field:display field="longitude" id="s_ch_unige_idsi_sportit_sportitfinal_Chemins_longitude" object="${chemins}" z="DJPXD7kmLB9bACQT8UHfSK3rnmc="/>
     </page:show>
 </div>
