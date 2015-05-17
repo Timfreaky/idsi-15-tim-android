@@ -1,5 +1,10 @@
 package ch.unige.idsi.sportit;
 
+/**
+ * @author Timothy McGarry & Florine Monnier
+ * @version 0.1
+ */
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -92,5 +97,6 @@ public class InfrParser {
 		return namesString;
 		 
 	}
+	//http://sporitfinal.cfapps.io/doc_inf.kml
 }
 
