@@ -1,11 +1,19 @@
 package ch.unige.idsi.sportit;
 
+/**
+ * @author Timothy McGarry & Florine Monnier
+ * @version 0.1
+ */
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -13,10 +21,18 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.Html;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -27,6 +43,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -40,27 +57,37 @@ public class MainActivity extends FragmentActivity implements
 	private double altitude;
 	private float accuracy;
 	private GoogleMap map;
-	final CharSequence[] items = {"Afficher les infrastructure?"};
+	final CharSequence[] items = { "Afficher les infrastructures", "Cacher les infrastructures" };
+	private MarkerOptions markerOpt;
+	private ArrayList<Marker> mArray = new ArrayList<Marker>();
+	private int my_previous_selected = -1;
+	private Dialog dialogBienvenu;
+	private Dialog dialogAbout;
+	private Button buttonAbout;
+	private Button buttonInfo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		startWindow();
+
 		map = ((SupportMapFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.map)).getMap();
 		map.setMyLocationEnabled(true);
 		map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-
-		/*
-		 * CameraPosition cameraPosition = new CameraPosition.Builder()
-		 * .zoom(13) .build();
-		 */
+		CameraPosition cameraPosition = new CameraPosition.Builder()
+				.target(new LatLng(46.177349, 6.124060)) // Sets the center of
+															// the map to
+															// Mountain View
+				.zoom(9) // Sets the zoom
+				.build(); // Creates a CameraPosition from the builder
+		map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
 		GoogleMapOptions mapOptions = new GoogleMapOptions();
 		mapOptions.compassEnabled(true).rotateGesturesEnabled(false)
 				.tiltGesturesEnabled(false);
-		// .camera(cameraPosition);
 
 		PathParser parser = new PathParser();
 		AssetManager mng = getAssets();
@@ -82,35 +109,6 @@ public class MainActivity extends FragmentActivity implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		InfrParser inf = new InfrParser();
-		AssetManager manag = getAssets();
-
-		try {
-
-			InputStream str = manag.open("doc_inf.kml");
-			InputStream str2 = manag.open("doc_inf.kml");
-			ArrayList<LatLng> listArr = inf.getCoordinateArrays(str);
-			ArrayList<String> listArray = inf.getNamesArrays(str2);
-
-			int i = 0;
-
-			for (LatLng latLng : listArr) {
-
-				MarkerOptions markerOpt = new MarkerOptions();
-				LatLng tempo = new LatLng(latLng.longitude, latLng.latitude);
-				markerOpt.position(tempo);
-				System.out.println(latLng.latitude + " - " + latLng.longitude);
-
-				map.addMarker(markerOpt).setTitle(listArray.get(i));
-				i++;
-			}
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
 
 	@Override
@@ -205,16 +203,16 @@ public class MainActivity extends FragmentActivity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_about:
-			Toast.makeText(this, "You selected the about option",
-					Toast.LENGTH_SHORT).show();
+			aboutWindow();
+
 			break;
 
 		case R.id.menu_help:
-			Toast.makeText(this, "You selected the help option",
-					Toast.LENGTH_SHORT).show();
+			startWindow();
+
 			break;
 		case R.id.menu_settings:
-			openAlert(null);
+			openAlertSettings(null);
 
 			break;
 
@@ -225,56 +223,79 @@ public class MainActivity extends FragmentActivity implements
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void openAlert(View view) {
-		
+	private void openAlertSettings(View view) {
+
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				MainActivity.this);
 
 		alertDialogBuilder.setTitle("Réglages");
 
-		alertDialogBuilder.setMessage("Are you sure?");
+		// alertDialogBuilder.setMessage("Eléments affichés");
+
+		alertDialogBuilder.setSingleChoiceItems(items, my_previous_selected,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						switch (which) {
+						case 0:
+							InfrParser inf = new InfrParser();
+							AssetManager manag = getAssets();
+
+							try {
+
+								InputStream str = manag.open("doc_inf.kml");
+								InputStream str2 = manag.open("doc_inf.kml");
+								ArrayList<LatLng> listArr = inf
+										.getCoordinateArrays(str);
+								ArrayList<String> listArray = inf
+										.getNamesArrays(str2);
+
+								int i = 0;
+
+								for (LatLng latLng : listArr) {
+
+									markerOpt = new MarkerOptions();
+									LatLng tempo = new LatLng(latLng.longitude,
+											latLng.latitude);
+									markerOpt.position(tempo);
+									markerOpt.title(listArray.get(i));
+
+									System.out.println("test"
+											+ listArray.get(i));
+									Marker marker = map.addMarker(markerOpt);
+									mArray.add(marker);
+									i++;
+								}
+
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+
+							break;
+						case 1:
+							for (Marker m : mArray) {
+
+								m.remove();
+
+							}
+							mArray.clear();
+						default:
+							break;
+						}
+
+					}
+
+				});
 
 		// set positive button: Yes message
 
-		alertDialogBuilder.setPositiveButton("Yes",
+		alertDialogBuilder.setPositiveButton("Ok",
 				new DialogInterface.OnClickListener() {
 
 					public void onClick(DialogInterface dialog, int id) {
-
-					}
-
-				});
-
-		// set negative button: No message
-
-		alertDialogBuilder.setNegativeButton("No",
-				new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface dialog, int id) {
-
-						// cancel the alert box and put a Toast to the user
-
-						dialog.cancel();
-
-						Toast.makeText(getApplicationContext(),
-								"You chose a negative answer",
-
-								Toast.LENGTH_LONG).show();
-
-					}
-
-				});
-
-		// set neutral button: Exit the app message
-
-		alertDialogBuilder.setNeutralButton("Exit the app",
-				new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface dialog, int id) {
-
-						// exit the app and go to the HOME
-
-						MainActivity.this.finish();
 
 					}
 
@@ -285,6 +306,58 @@ public class MainActivity extends FragmentActivity implements
 		// show alert
 
 		alertDialog.show();
+
+	}
+
+	/**
+	 * 
+	 * 
+	 * 
+	 */
+	public void startWindow() {
+		dialogBienvenu = new Dialog(this);
+		dialogBienvenu.setContentView(R.layout.popup_window_info);
+		dialogBienvenu.setTitle("SportIt");
+
+		TextView txt = (TextView) dialogBienvenu.findViewById(R.id.infoTxtView);
+		txt.setText(Html.fromHtml(getString(R.string.Bienvenue)));
+
+		buttonInfo = (Button) dialogBienvenu.findViewById(R.id.buttonInfoClose);
+		buttonInfo.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialogBienvenu.dismiss();
+
+			}
+		});
+
+		dialogBienvenu.show();
+		// dialogBienvenu.setCanceledOnTouchOutside(true);
+	}
+
+	public void aboutWindow() {
+
+		dialogAbout = new Dialog(this);
+		dialogAbout.setContentView(R.layout.about_popup);
+		dialogAbout.setTitle("À propos...");
+
+		TextView aboutTxt = (TextView) dialogAbout.findViewById(R.id.aboutView);
+		aboutTxt.setText(Html.fromHtml(getString(R.string.About)));
+
+		dialogAbout.show();
+		dialogAbout.setCanceledOnTouchOutside(true);
+
+		buttonAbout = (Button) dialogAbout.findViewById(R.id.buttonClose);
+		buttonAbout.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialogAbout.dismiss();
+
+			}
+		});
+
 	}
 
 }
