@@ -5,20 +5,26 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_main">Main</string>
     <string name="title_activity_location">Location</string>
-    <string name="new_location">New Location : Latitude = %1$s, Longitude = %2$s, Altitude = %3$s avec une précision de %4$s mètres </string>
-	<string name="provider_enabled">Localisation %s activée</string>
-	<string name="provider_disabled">The provider %s is now disabled</string>
+    <string name="new_location">Nouvelle position : Latitude = %1$s, Longitude = %2$s, Altitude = %3$s avec une précision de %4$s mètres </string>
+	<string name="provider_enabled">Localisation activée</string>
+	<string name="provider_disabled">Localisation désactivée </string>
 	<string name="provider_new_status">The provider %1$s has now a new status %2$s</string>
 	<string name="action_about">À Propos</string>
 	<string name="action_help">Aide</string>
 	<string name="action_settings">Réglages</string>
 	<string name="Close">Fermer</string>
 	<string name="infoClose">Fermer</string>
-	<string name="Bienvenue"><![CDATA[<h1>Bienvenu dans cette application!</h1></br>
+	<string name="Bienvenue"><![CDATA[<h3>Bienvenu dans cette application!</h3></br>
 	  	<p>Principale fonctionnalités:</p></br>
 	  	<p>- Afficher les chemins pédestres de   Genève   sur une Google Map</p></br>
 	  	<p>- Afficher les infrastructures sportives sur la même carte</p></br>
-	  	<p>- Grâce à la localisation, vous pouvez   voir quels sont les chemins pédestres, ainsi que les infrastructures sportives à proximité</p></br>]]></string>
-	<string name="About"><![CDATA[<p>hello</p>]]></string>   
+	  	<p>- Grâce à la localisation, vous pouvez   voir quels sont les chemins pédestres, ainsi que les infrastructures sportives à proximité</p></br>
+	  	<p> Pour profiter de cette application dans son ensemble, il est recommandé d\'activer la localisation sur votre téléphone</p></br>
+		<p> En plus des chemins pedestres, il est possible d\'afficher les infrastructures sportives à Genève.
+	  	Pour cela, il vous suffit de vous rendre dans les réglages et de choisir d\'afficher ou cacher les infrastructures </p>]]></string>
 	
+	<string name="About"><![CDATA[<h2>SportIt</h2></br>
+	    <p>Cette application a été réalisée dans le cadre de l\'université de Genève </p></br>
+	    ]]></string>   
+	    
 </resources>
