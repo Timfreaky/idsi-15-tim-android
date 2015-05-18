@@ -1,10 +1,5 @@
 package ch.unige.idsi.sportit;
 
-/**
- * @author Timothy McGarry & Florine Monnier
- * @version 0.1
- */
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,6 +13,10 @@ import org.jsoup.parser.Parser;
 
 import com.google.android.gms.maps.model.LatLng;
 
+/**
+ * @author Timothy McGarry & Florine Monnier
+ * @version 0.1
+ */
 public class PathParser {
 
 	public PathParser() {

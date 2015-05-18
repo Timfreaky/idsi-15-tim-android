@@ -1,10 +1,5 @@
 package ch.unige.idsi.sportit;
 
-/**
- * @author Timothy McGarry & Florine Monnier
- * @version 0.1
- */
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,6 +13,10 @@ import org.jsoup.parser.Parser;
 
 import com.google.android.gms.maps.model.LatLng;
 
+/**
+ * @author Timothy McGarry & Florine Monnier
+ * @version 0.1
+ */
 public class InfrParser {
 
 	public InfrParser() {
@@ -25,6 +24,14 @@ public class InfrParser {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Méthode qui parse le fichier docInf.kml pour récupérer les coordonnées de chaque infrastructure. 
+	 * Les coordonnées sont stockées dans une arraylist de LatLng (onePlace).
+	 * Jsoup est une librairie importée pour le parser
+	 * 
+	 * @param stream
+	 * @return onePlace
+	 */
 	public ArrayList<LatLng> getCoordinateArrays(InputStream stream) {
 		ArrayList<LatLng> onePlace = new ArrayList<LatLng>();
 
@@ -65,11 +72,16 @@ public class InfrParser {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(onePlace);
 		return onePlace;
 
 	}
-
+	
+	/**
+	 * Méthode qui parse le fichier docInf.kml pour récupérer les titres (ou type) de chaque infrastructure (utilisés pour les markers sur la cartes).
+	 * 
+	 * @param stream
+	 * @return namesString
+	 */
 	public ArrayList<String> getNamesArrays(InputStream stream) {
 		ArrayList<String> namesString = new ArrayList<String>();
 		try {
