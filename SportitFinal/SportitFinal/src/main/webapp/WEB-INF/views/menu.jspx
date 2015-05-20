@@ -15,8 +15,5 @@
             <menu:item id="i_controller__adresseindex_id" messageCode="global_generic" url="/adresse/index" z="xw4u5/MIzShD3SGICmC+eaTd0PI="/>
             <menu:item id="i_controller__mapsindex_id" messageCode="global_generic" url="/maps/index" z="ngBZPbVwrIo9fC0BZNxU+OKFBAo="/>
         </menu:category>
-        <menu:category id="c_view" z="HjmI4Chx/kBYfS/6HjBLbCA+XpU=">
-            <menu:item id="i_view__mapsmaps_id" messageCode="global_generic" url="/maps/maps" z="O/aBQEQmvz/RUueL+JZZDnEToo0="/>
-        </menu:category>
     </menu:menu>
 </div>
