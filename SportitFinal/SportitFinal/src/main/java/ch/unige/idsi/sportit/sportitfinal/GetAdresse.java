@@ -45,7 +45,7 @@ public class GetAdresse extends HttpServlet {
 		// TODO Auto-generated method stub
 		final Geocoder geocoder = new Geocoder();
 		Adresse adresse = new Adresse();
-		System.out.println("Adresse:"+request.getParameter("adresse").toString());
+		//System.out.println("Adresse:"+request.getParameter("adresse").toString());
 		adresse.setAdresse(request.getParameter("adresse").toString());
 		GeocoderRequest geocoderRequest = new GeocoderRequestBuilder()
 				.setAddress(adresse.getAdresse()).setLanguage("fr")
@@ -60,12 +60,10 @@ public class GetAdresse extends HttpServlet {
 		adresse.setLatitude((data_2.getLocation().getLat()).doubleValue());
 		adresse.setLongitude((data_2.getLocation().getLng()).doubleValue());
 		adresse.persist();
-		System.out.println("Latitude: " + (data_2.getLocation().getLat()).doubleValue());
-		System.out.println("Longitude: " + (data_2.getLocation().getLat()).doubleValue());
-		/*
+		
 		System.out.println("Votre adresse: " + adresse.getAdresse()
 				+ ", latitude :" + adresse.getLatitude() + ", longitude: "
-				+ adresse.getLongitude());*/
+				+ adresse.getLongitude());
 		
 		/*RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/maps/index.jspx");
 	    dispatcher.forward(request, response);*/

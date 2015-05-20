@@ -50,9 +50,6 @@ public class ParserChemins extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		ArrayList<ArrayList<Double>> allTracksLatitude = new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> allTracksLongitude = new ArrayList<ArrayList<Double>>();
-
 		// Reprise du document kml à parser
 		URL urlkml = new URL("http://sportitfinal.cfapps.io/doc.kml");
 		URLConnection uc = urlkml.openConnection();
@@ -72,6 +69,10 @@ public class ParserChemins extends HttpServlet {
 			tracksString.add(e.toString().replace("<coordinates>", "")
 					.replace("</coordinates>", ""));
 		}
+		//Déclaration des listes de latitudes et de longitudes
+		ArrayList<ArrayList<Double>> allTracksLatitude = new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> allTracksLongitude = new ArrayList<ArrayList<Double>>();
+		
 		for (int i = 0; i < tracksString.size(); i++) {
 			ArrayList<Double> oneTrackLatitude = new ArrayList<Double>();
 			ArrayList<Double> oneTrackLongitude = new ArrayList<Double>();
@@ -96,15 +97,6 @@ public class ParserChemins extends HttpServlet {
 			chemin.persist();
 		
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }

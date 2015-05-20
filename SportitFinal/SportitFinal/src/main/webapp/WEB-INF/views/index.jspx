@@ -2,13 +2,73 @@
   <jsp:directive.page contentType="text/html;charset=UTF-8" />
   <jsp:output omit-xml-declaration="yes" />
   <spring:message var="app_name" code="application_name" htmlEscape="false" />
-  web<spring:message var="title" code="welcome_titlepane" arguments="${app_name}" htmlEscape="false" />
-  <util:panel id="title" title="${title}">
-    <h3>
-      <spring:message code="welcome_h3" arguments="${app_name}" />
-    </h3>
-    <p>
-      <spring:message code="welcome_text" />
-    </p>
+  <spring:message var="title" code="welcome_titlepane" arguments="${app_name}" htmlEscape="false" />
+  <util:panel id="title" title="SPORTIT">
+    <h2>
+      Connaître les alentours pour une balade sportive!
+    </h2>
   </util:panel>
+<style type="text/css">
+html, body {
+	height: 800px;
+	margin: 0;
+	padding: 0;
+	background-color: #c8d873;
+}
+#header {
+	display: none;
+}
+#footer {
+	display: none;
+}
+#menu {
+	display: none;
+}
+h2{
+	color: #483D8B;
+}
+h3 {
+	color: #483D8B;
+}
+p {
+	color: #483D8B;
+	margin-left: 132px; 
+	position: absolute;
+	font-family: "Arial";
+}
+.welcome {
+	width: 520px;
+	height: 240px;
+	padding-top: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 10px;
+}
+.about {
+	width: 520px;
+	height: 240px;
+	padding-top: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 10px;
+}
+</style>
+
+<div class="welcome">
+<h3>Bienvenue sur notre site Sportit, connaître les alentours pour une balade sportive!!!</h3>
+	  	<p></p>
+	  	<p> Principale fonctionnalités: </br> </p>
+	  	<p> - Afficher les chemins pédestres de Genève sur une Google Map </br> </p>
+	  	<p> - Afficher les infrastructures sportives sur la même carte </br> </p>
+	  	<p> - Insérez votre adresse pour voir quels sont les chemins pédestres, ainsi que les infrastructures sportives à proximité </br> </br> </p>
+</div>
+
+<div class="about">
+	<h4>About:</h4>
+		<p>Cette application a été réalisée dans le cadre d'un cours à l'université de Genève</br></p>
+		<p>Dans ce projet, nous avons également mis en place une application Android le concept de Sportit.</br></p>
+		<p>Sur celui-ci, contrairement au site, vous serez géolocalisé grâce à votre appareil et ne devrez pas entrer votre adresse.</br></p>
+</div>
+
+<a href="adresse/index.jspx">Entrez votre adresse sur Genève</a>
 </div>

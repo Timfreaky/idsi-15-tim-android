@@ -20,10 +20,12 @@ import org.jsoup.parser.Parser;
 
 /**
  * 
- * Cette servlet parse le kml des infrastructures pour insérer des objets dans le model Infrastructures
- * Une arrayList est alors créée contenant les noms, les latitudes et les longitude des infrastructures
- * Celles-ci sont ensuite enregistrées par des set() et persist()
- * Servlet implementation class ParserInfrastructures
+ * Cette servlet parse le kml des infrastructures pour insérer des objets dans
+ * le model Infrastructures Une arrayList est alors créée contenant les noms,
+ * les latitudes et les longitude des infrastructures Celles-ci sont ensuite
+ * enregistrées par des set() et persist() Servlet implementation class
+ * ParserInfrastructures
+ * 
  * @author Florine et Tim
  * @version 1.0
  */
@@ -71,15 +73,14 @@ public class ParserInfrastructures extends HttpServlet {
 						.replace("</simpledata>", ""));
 			}
 		}
-		
+
 		/*
-		for (int i = 0; i < nameString.size(); i++) {
-			System.out.println("Name: "+nameString.get(i) + "\n");
-		}*/
-		
+		 * for (int i = 0; i < nameString.size(); i++) {
+		 * System.out.println("Name: "+nameString.get(i) + "\n"); }
+		 */
 
 		// Pour chaque élément, on reprend les coordonnées dans une arrayList
-		// (latitude et longitude)		
+		// (latitude et longitude)
 		ArrayList<String> tracksString = new ArrayList<String>();
 
 		for (Element ec : doc.select("coordinates")) {
@@ -108,36 +109,28 @@ public class ParserInfrastructures extends HttpServlet {
 			}
 		}
 
-		//OK!
+		// OK!
 		/*
-		for (int i = 0; i< lat.size(); i++){
-			System.out.println("Lat: "+ lat.get(i));
-		}
-		for (int i = 0; i< longi.size(); i++){
-			System.out.println("Long: "+ longi.get(i));
-		}*/
-		
+		 * for (int i = 0; i< lat.size(); i++){ System.out.println("Lat: "+
+		 * lat.get(i)); } for (int i = 0; i< longi.size(); i++){
+		 * System.out.println("Long: "+ longi.get(i)); }
+		 */
+
+		// System.out.println("Name: "+nameString.get(i) + " lat: "+
+		// lat.get(i) + " long: " + longi.get(i) );
+		// Toutes les listes doivent avoir la même longeur car pour un nom,
+		// une lat et une long!
+		// déclaration de mon objet infrastructure
 		for (int i = 0; i < nameString.size(); i++) {
-			//System.out.println("Name: "+nameString.get(i) + " lat: "+ lat.get(i) + " long: " + longi.get(i) );	
-			//Toutes les listes doivent avoir la même longeur car pour un nom, une lat et une long!
-			// déclaration de mon objet infrastructure
 			Infrastructures infrastructure = new Infrastructures();
 			infrastructure.setLatitude(lat.get(i));
 			infrastructure.setLongitude(longi.get(i));
 			infrastructure.setName(nameString.get(i));
-			infrastructure.persist();	
+			infrastructure.persist();
 		}
-		
-		//this.getServletContext().getRequestDispatcher( "/WEB-INF/views/adresse.jsp" ).forward( request, response );
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// this.getServletContext().getRequestDispatcher(
+		// "/WEB-INF/views/adresse.jsp" ).forward( request, response );
 	}
 
 }
