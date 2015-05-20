@@ -122,7 +122,7 @@ public class ParserInfrastructures extends HttpServlet {
 			infrastructure.persist();	
 		}
 		
-		this.getServletContext().getRequestDispatcher( "/WEB-INF/views/adresse.jsp" ).forward( request, response );
+		//this.getServletContext().getRequestDispatcher( "/WEB-INF/views/adresse.jsp" ).forward( request, response );
 	}
 
 	/**

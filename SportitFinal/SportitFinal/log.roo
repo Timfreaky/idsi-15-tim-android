@@ -96,3 +96,54 @@ field number --fieldName latitude --type double
 field number --fieldName longitude --type double
 web mvc scaffold --class ~.CheminsController
 // Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-15 16:42:53
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-17 13:10:23
+entity jpa --class  Adresse 
+field string --fieldName adresse 
+field boolean --fieldName latitude
+field boolean --fieldName longitude
+hint
+web mvc view --title Adresse --path /adresse --viewName Adresse
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-17 16:00:41
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-17 19:14:07
+web mvc view --title Adresse --path Adresse --viewName Adresse
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-17 19:42:24
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-17 19:52:24
+hint
+hint web mvc
+hint web mvc view 
+hint view
+hint
+web mvc update tags 
+hint
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-17 19:55:06
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-18 08:45:43
+entity jpa --class ~.Adresse 
+field string --fieldName adresse 
+field number --fieldName latitude --type double
+field number --fieldName longitude --type double
+web mvc all --package ch.unige.idsi.sportit.sportitfinal 
+web mvc controller --class ~.AdresseController 
+// [failed] web mvc finder add --class ~.AdresseController --formBackingType ~.Adresse
+// [failed] web mvc finder add --formBackingType ~.Adresse
+web mvc finder all
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-18 10:20:25
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-18 11:26:50
+hint
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-18 11:36:41
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-18 14:06:26
+entity jpa --class ~.Adresse 
+field string --fieldName adresse
+field number --fieldName latitude --type double
+field number --fieldName longitude --type double 
+web mvc controller --class ~.AdresseController
+entity jpa --class Maps 
+web mvc view --path /maps --title Maps --viewName index 
+web mvc controller --class ~.MapsController 
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-18 14:59:47
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log opened at 2015-05-18 18:09:08
+entity jpa --class ~.Maps
+hint 
+web mvc view --path maps --title maps --viewName maps
+web mvc controller --class ~.AdresseController
+web mvc controller --class ~.MapsController
+// Spring Roo 1.3.1.RC1 [rev 4877cfb] log closed at 2015-05-18 18:51:15
