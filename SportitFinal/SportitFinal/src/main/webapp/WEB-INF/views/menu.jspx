@@ -12,7 +12,11 @@
             <menu:item id="i_chemins_list" messageCode="global_menu_list" url="/cheminses?page=1&amp;size=${empty param.size ? 10 : param.size}" z="iFwrO6z/iWljR1Jz2UzL9JHK9qw="/>
         </menu:category>
         <menu:category id="c_controller" z="nj8Dm3hojIyIEyPkwE1UMDIs+K8=">
-            <menu:item id="i_controller__cheminsindex_id" messageCode="global_generic" url="/chemins/index" z="qMTzeo2eExtUhmOH32+0p1c5EfI="/>
+            <menu:item id="i_controller__adresseindex_id" messageCode="global_generic" url="/adresse/index" z="xw4u5/MIzShD3SGICmC+eaTd0PI="/>
+            <menu:item id="i_controller__mapsindex_id" messageCode="global_generic" url="/maps/index" z="ngBZPbVwrIo9fC0BZNxU+OKFBAo="/>
+        </menu:category>
+        <menu:category id="c_view" z="HjmI4Chx/kBYfS/6HjBLbCA+XpU=">
+            <menu:item id="i_view__mapsmaps_id" messageCode="global_generic" url="/maps/maps" z="O/aBQEQmvz/RUueL+JZZDnEToo0="/>
         </menu:category>
     </menu:menu>
 </div>

@@ -25,7 +25,10 @@
     </mvc:interceptors>
 
     <!-- Selects a static view for rendering without the need for an explicit controller -->
-    <mvc:view-controller path="///adresse/adresse"/>
+    <mvc:view-controller path="//maps/maps"/>
+    <mvc:view-controller path="/maps/index"/>
+    <mvc:view-controller path="//Adresse/adresse"/>
+    <mvc:view-controller path="/adresse"/>
     <mvc:view-controller path="/" view-name="index"/>
     <mvc:view-controller path="/uncaughtException"/>
     <mvc:view-controller path="/resourceNotFound"/>

@@ -6,17 +6,5 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord
-public class Adresse {
-
-    /**
-     */
-    private String adresse;
-
-    /**
-     */
-    private double latitude;
-
-    /**
-     */
-    private double longitude;
+public class Maps {
 }

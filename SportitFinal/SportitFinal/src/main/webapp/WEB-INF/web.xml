@@ -91,12 +91,12 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>getAdresse</display-name>
-    <servlet-name>getAdresse</servlet-name>
-    <servlet-class>ch.unige.idsi.sportit.sportitfinal.getAdresse</servlet-class>
+    <display-name>GetAdresse</display-name>
+    <servlet-name>GetAdresse</servlet-name>
+    <servlet-class>ch.unige.idsi.sportit.sportitfinal.GetAdresse</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>getAdresse</servlet-name>
-    <url-pattern>/getAdresse</url-pattern>
+    <servlet-name>GetAdresse</servlet-name>
+    <url-pattern>/GetAdresse</url-pattern>
   </servlet-mapping>
 </web-app>

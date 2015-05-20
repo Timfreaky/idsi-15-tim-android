@@ -15,19 +15,19 @@ privileged aspect Adresse_Roo_JavaBean {
         this.adresse = adresse;
     }
     
-    public Double Adresse.getLatitude() {
+    public double Adresse.getLatitude() {
         return this.latitude;
     }
     
-    public void Adresse.setLatitude(Double latitude) {
+    public void Adresse.setLatitude(double latitude) {
         this.latitude = latitude;
     }
     
-    public Double Adresse.getLongitude() {
+    public double Adresse.getLongitude() {
         return this.longitude;
     }
     
-    public void Adresse.setLongitude(Double longitude) {
+    public void Adresse.setLongitude(double longitude) {
         this.longitude = longitude;
     }
     
