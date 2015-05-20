@@ -1,19 +1,13 @@
 package ch.unige.idsi.sportit;
 
-/**
- * @author Timothy McGarry & Florine Monnier
- * @version 0.1
- */
-
 import java.io.IOException;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -22,16 +16,12 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +38,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+/**
+ * Activité principale de l'application SportIt qui génère la Google Map et les
+ * activités qui lui sont liées.
+ * 
+ * @author Timothy McGarry & Florine Monnier
+ * @version 0.1
+ *
+ */
 public class MainActivity extends FragmentActivity implements
 		android.location.LocationListener, OnMapReadyCallback {
 
@@ -66,11 +64,22 @@ public class MainActivity extends FragmentActivity implements
 	private Button buttonAbout;
 	private Button buttonInfo;
 
+	/**
+	 * Méthode OnCreate où l'on instancie la Google Map avec ses options.
+	 * Instanciation d'un objet de la classe PathParser pour dessiner les
+	 * polylines en fonction des coordonnées parsées.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		/**
+		 * On lance la méthode startWindow qui affiche un message de bienvenue
+		 * au démarrage de l'application
+		 * 
+		 * @see startWindow()
+		 */
 		startWindow();
 
 		map = ((SupportMapFragment) getSupportFragmentManager()
@@ -89,6 +98,12 @@ public class MainActivity extends FragmentActivity implements
 		mapOptions.compassEnabled(true).rotateGesturesEnabled(false)
 				.tiltGesturesEnabled(false);
 
+		/**
+		 * Instanciation d'un objet de la classe PathParser 
+		 * On récupère les données parsées dans les arraylist pour créer les polylines sur la Google Map
+		 * 
+		 * @see PathParser
+		 */
 		PathParser parser = new PathParser();
 		AssetManager mng = getAssets();
 		try {
@@ -106,11 +121,15 @@ public class MainActivity extends FragmentActivity implements
 				polyline.setColor(Color.YELLOW);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Le locationManager lm relance l'opération de recherche de fournisseur de service
+	 * à la reprise de l'application
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -125,12 +144,30 @@ public class MainActivity extends FragmentActivity implements
 				this);
 	}
 
+	/**
+	 * Lorsque l'application est mise en pause (arrière plan), on arrête la
+	 * recherche de fournisseur de service
+	 */
 	@Override
 	protected void onPause() {
 		super.onPause();
 		lm.removeUpdates(this);
 	}
 
+	/**
+	 * Méthode qui gère la localisation. À chaque déplacement de l'utilisateur,
+	 * cette méthode cherche les nouvelles coordonnées. La caméra se déplacera en
+	 * fonction de la position
+	 * 
+	 * @param location
+	 *            qui représente la :
+	 *            <ul>
+	 *            <li>la latitude</li>
+	 *            <li>la longitude</li>
+	 *            <li>l'altitude</li>
+	 *            <li>la précision (accuracy)</li>
+	 *            </ul>
+	 */
 	@Override
 	public void onLocationChanged(Location location) {
 		latitude = location.getLatitude();
@@ -151,13 +188,20 @@ public class MainActivity extends FragmentActivity implements
 
 	}
 
+	/**
+	 * 
+	 * 
+	 */
 	@Override
 	public void onProviderDisabled(String provider) {
 		String msg = String.format(
 				getResources().getString(R.string.provider_disabled), provider);
 		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 	}
-
+	
+	/**
+	 * 
+	 */
 	@Override
 	public void onProviderEnabled(String provider) {
 		String msg = String.format(
@@ -191,6 +235,9 @@ public class MainActivity extends FragmentActivity implements
 
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -199,6 +246,17 @@ public class MainActivity extends FragmentActivity implements
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	/**
+	 * Cette méthode gère la séléction des éléments du menu. Chaque élément ou
+	 * "item" démarre une action spécifique générée par les différentes méthodes
+	 * 
+	 * @param item
+	 * @return item qui représente un élément du menu
+	 * 
+	 * @see aboutWindow()
+	 * @see startWindow()
+	 * @see openAlertSettings()
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -223,6 +281,10 @@ public class MainActivity extends FragmentActivity implements
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * 
+	 * @param view
+	 */
 	private void openAlertSettings(View view) {
 
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -235,9 +297,13 @@ public class MainActivity extends FragmentActivity implements
 		alertDialogBuilder.setSingleChoiceItems(items, my_previous_selected,
 				new DialogInterface.OnClickListener() {
 
+					/**
+					 * 
+					 */
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub
+						my_previous_selected = which;
 						switch (which) {
 						case 0:
 							InfrParser inf = new InfrParser();
@@ -279,7 +345,6 @@ public class MainActivity extends FragmentActivity implements
 							for (Marker m : mArray) {
 
 								m.remove();
-
 							}
 							mArray.clear();
 						default:
@@ -291,7 +356,6 @@ public class MainActivity extends FragmentActivity implements
 				});
 
 		// set positive button: Yes message
-
 		alertDialogBuilder.setPositiveButton("Ok",
 				new DialogInterface.OnClickListener() {
 
@@ -310,9 +374,7 @@ public class MainActivity extends FragmentActivity implements
 	}
 
 	/**
-	 * 
-	 * 
-	 * 
+	 * Méthode qui gère le dialog de bienvenue au démarrage de l'application
 	 */
 	public void startWindow() {
 		dialogBienvenu = new Dialog(this);
@@ -321,6 +383,7 @@ public class MainActivity extends FragmentActivity implements
 
 		TextView txt = (TextView) dialogBienvenu.findViewById(R.id.infoTxtView);
 		txt.setText(Html.fromHtml(getString(R.string.Bienvenue)));
+		txt.setMovementMethod(ScrollingMovementMethod.getInstance());
 
 		buttonInfo = (Button) dialogBienvenu.findViewById(R.id.buttonInfoClose);
 		buttonInfo.setOnClickListener(new View.OnClickListener() {
@@ -336,6 +399,9 @@ public class MainActivity extends FragmentActivity implements
 		// dialogBienvenu.setCanceledOnTouchOutside(true);
 	}
 
+	/**
+	 * Méthode qui génère le dialog lorsque "à propos" est cliqué
+	 */
 	public void aboutWindow() {
 
 		dialogAbout = new Dialog(this);
@@ -346,7 +412,7 @@ public class MainActivity extends FragmentActivity implements
 		aboutTxt.setText(Html.fromHtml(getString(R.string.About)));
 
 		dialogAbout.show();
-		dialogAbout.setCanceledOnTouchOutside(true);
+		//dialogAbout.setCanceledOnTouchOutside(true);
 
 		buttonAbout = (Button) dialogAbout.findViewById(R.id.buttonClose);
 		buttonAbout.setOnClickListener(new View.OnClickListener() {
