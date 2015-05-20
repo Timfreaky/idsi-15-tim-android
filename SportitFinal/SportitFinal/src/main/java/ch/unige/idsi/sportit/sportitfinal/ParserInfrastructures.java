@@ -19,7 +19,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 
 /**
+ * 
+ * Cette servlet parse le kml des infrastructures pour insérer des objets dans le model Infrastructures
+ * Une arrayList est alors créée contenant les noms, les latitudes et les longitude des infrastructures
+ * Celles-ci sont ensuite enregistrées par des set() et persist()
  * Servlet implementation class ParserInfrastructures
+ * @author Florine et Tim
+ * @version 1.0
  */
 public class ParserInfrastructures extends HttpServlet {
 	private static final long serialVersionUID = 1L;

@@ -9,6 +9,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @RequestMapping("/adresse/**")
 @Controller
+
+/**
+ * 
+ * Controller du model Adresse
+ * 
+ * @author Florine et Tim
+ * @version 1.0
+ *
+ */
 public class AdresseController {
 
     @RequestMapping(method = RequestMethod.POST, value = "{id}")

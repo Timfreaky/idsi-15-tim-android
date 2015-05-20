@@ -6,5 +6,12 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord
+/**
+ * Model Maps
+ * 
+ * @author Florine et Tim
+ * @version 1.0
+ *
+ */
 public class Maps {
 }

@@ -20,6 +20,10 @@ import org.jsoup.parser.Parser;
 
 /**
  * Servlet implementation class ParserChemins
+ * Cette servlet parse le kml pour reprendre les chemins
+ * 
+ * @author Florine et Tim
+ * @version 1.0
  */
 public class ParserChemins extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -32,6 +36,13 @@ public class ParserChemins extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 	/**
+	 * Deux arrayList sont créées pour contenir la liste des latitudes d'un chemins et la liste des longitudes
+	 * Le kml est parsé pour reprendre les coordonnées
+	 * des objets de chemins sont insérés dans le model Chemin grâce à 
+	 * Chemins chemin = new Chemins();
+			chemin.setLatitude(allTracksLatitude.get(i));
+			chemin.setLongitude(allTracksLongitude.get(i));
+			chemin.persist();
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -78,7 +89,6 @@ public class ParserChemins extends HttpServlet {
 			allTracksLongitude.add(oneTrackLongitude);
 		}
 
-		//Probleme: NotSerializableException: com.google.maps.model.LatLng
 		for (int i = 0; i < allTracksLatitude.size(); i++) {
 			Chemins chemin = new Chemins();
 			chemin.setLatitude(allTracksLatitude.get(i));
