@@ -5,17 +5,12 @@
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 	<jsp:output omit-xml-declaration="yes" />
 	<spring:message code="label_maps_index" htmlEscape="false" var="title" />
-	<util:panel id="title" title="${title}">
-		<spring:message code="application_name" htmlEscape="false"
-			var="app_name" />
+	<util:panel id="title" title="SPORTIT">
 	</util:panel>
 	<style type="text/css">
-html, body {
-	height: 100%;
-}
 .map-canvas
 {
-	height: 470px;
+	height: 80%;
 	margin: 10px;
 	padding: 10px;
 }
@@ -37,6 +32,7 @@ html, body {
 		var x = null;
 	</script>
 	<script type="text/javascript">
+	//<![CDATA[
 		function initialize() {
 
 			var mapOptions = {
@@ -44,7 +40,7 @@ html, body {
 					lat : "${latitudeUtilisateur}",
 					lng : "${longitudeUtilisateur}"
 				},
-				zoom : 11
+				zoom : 6
 			};
 
 			var map = new google.maps.Map(
@@ -53,7 +49,7 @@ html, body {
 			var infra = "${markerInfra}";
 			console.log(infra);
 			
-			for (var i = 0; i < infra.length; i++) {
+			for (var i = 0; i<infra.length; i++) {
 				var infrastructure = infra[i];
 				var myLatLng = new google.maps.LatLng(infrastructure[1],
 						infrastructure[2]);
@@ -67,7 +63,7 @@ html, body {
 			var chemins = "${cheminsPedestres}";
 			console.log(chemins);
 			
-			for (var j = 0; j < chemins.length; j++) {
+			for (var j = 0; j<chemins.length; j++) {
 			var chemin = chemins[j]+";";
 			var flightPath = 
 				new google.maps.Polyline({ 
@@ -81,6 +77,7 @@ html, body {
 			}
 		}
 		google.maps.event.addDomListener(window, 'load', initialize);
+		//]]>
 	</script>
 	<div id="map-canvas"></div>
 </div>

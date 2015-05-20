@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <div xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
   <jsp:directive.page contentType="text/html;charset=UTF-8" />
   <jsp:output omit-xml-declaration="yes" />
@@ -13,7 +14,7 @@ html, body {
 	height: 800px;
 	margin: 0;
 	padding: 0;
-	background-color: #c8d873;
+	background-color: #CCCCFF;
 }
 #header {
 	display: none;
@@ -29,46 +30,63 @@ h2{
 }
 h3 {
 	color: #483D8B;
+	width: 400px;
 }
 p {
 	color: #483D8B;
-	margin-left: 132px; 
+	margin-left: 20px; 
 	position: absolute;
 	font-family: "Arial";
 }
 .welcome {
-	width: 520px;
-	height: 240px;
 	padding-top: 10px;
-	padding-left: 15px;
-	padding-right: 15px;
+	padding-left: 80px;
+	padding-right: 200px;
 	padding-bottom: 10px;
+	font-size: 15px;
 }
 .about {
 	width: 520px;
-	height: 240px;
 	padding-top: 10px;
 	padding-left: 15px;
 	padding-right: 15px;
 	padding-bottom: 10px;
+	font-size: 12px;
+}
+a{
+	font-size: 18px;
+	color: #483D8B;
+}
+button {
+	width: 15em;
+	height: 1.5em;
+}
+form {
+	padding-top: 20px;
+	padding-bottom: 10px;
+	padding-left: 40px;
+	color:#483D8B;
+	font-size: 16px;
 }
 </style>
 
 <div class="welcome">
-<h3>Bienvenue sur notre site Sportit, connaître les alentours pour une balade sportive!!!</h3>
-	  	<p></p>
-	  	<p> Principale fonctionnalités: </br> </p>
-	  	<p> - Afficher les chemins pédestres de Genève sur une Google Map </br> </p>
-	  	<p> - Afficher les infrastructures sportives sur la même carte </br> </p>
-	  	<p> - Insérez votre adresse pour voir quels sont les chemins pédestres, ainsi que les infrastructures sportives à proximité </br> </br> </p>
+<h3>Bienvenue sur notre site Sportit, </h3><br/> <h3>connaître les alentours pour une balade sportive!!!</h3>
+	  	<p><b>Principale fonctionnalités:</b></p><br/>
+	  	<p>- Afficher les chemins pédestres de Genève sur une Google Map </p><br/>
+	  	<p>- Afficher les infrastructures sportives sur la même carte</p><br/>
+	  	<p>- Insérez votre adresse pour voir quels sont les chemins pédestres, ainsi que les infrastructures sportives à proximité </p><br/>
 </div>
+	
+	<form action="http://sportitfinal.cfapps.io/GetAdresse" method="GET" id="form">
+		Votre Adresse: <input type="text" name="adresse" id="adresse"></input>
+		<input type="submit" value="Voir la carte"/>
+	</form>
 
 <div class="about">
 	<h4>About:</h4>
-		<p>Cette application a été réalisée dans le cadre d'un cours à l'université de Genève</br></p>
-		<p>Dans ce projet, nous avons également mis en place une application Android le concept de Sportit.</br></p>
-		<p>Sur celui-ci, contrairement au site, vous serez géolocalisé grâce à votre appareil et ne devrez pas entrer votre adresse.</br></p>
+		<p>Cette application a été réalisée dans le cadre d'un cours à l'université de Genève</p><br/>
+		<p>Dans ce projet, nous avons également mis en place une application Android qui reprend le concept de Sportit.</p><br/>
+		<p>Sur celui-ci, contrairement au site, vous serez géolocalisé grâce à votre appareil et ne devrez pas entrer votre adresse.</p><br/>
 </div>
-
-<a href="adresse/index.jspx">Entrez votre adresse sur Genève</a>
 </div>

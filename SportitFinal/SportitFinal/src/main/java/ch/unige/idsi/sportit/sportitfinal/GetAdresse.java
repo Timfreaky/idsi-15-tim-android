@@ -65,8 +65,8 @@ public class GetAdresse extends HttpServlet {
 				+ ", latitude :" + adresse.getLatitude() + ", longitude: "
 				+ adresse.getLongitude());
 		
-		/*RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/maps/index.jspx");
-	    dispatcher.forward(request, response);*/
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/maps/index.jspx");
+	    dispatcher.forward(request, response);
 	}
 
 	/**
