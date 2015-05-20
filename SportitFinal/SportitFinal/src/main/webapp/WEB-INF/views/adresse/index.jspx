@@ -9,4 +9,8 @@
       <spring:message arguments="${app_name}" code="welcome_titlepane"/>
     </h3>
   </util:panel>
+  <form  action="http://sportitfinal.cfapps.io/GetAdresse" method="GET" id="form">
+  	Adresse: <input type="text" name="adresse" id="adresse"></input>
+  </form>
+  <button type="submit" form="form "value="Voir la carte">Voir la carte</button>
 </div>
