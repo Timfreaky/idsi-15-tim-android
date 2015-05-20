@@ -6,14 +6,27 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @RequestMapping("/maps/**")
 @Controller
+/**
+ * Ce controller de la vue maps a pour but de lui envoyer les infrastructures sportives, 
+ * les chemins pédestres et l'adresse de l'utilisateur pour modifier celle-ci en conséquence
+ * 
+ * @author Florine et Tim
+ * @version 1.0
+ *
+ */
 public class MapsController {
 
     @RequestMapping
-    //(method = RequestMethod.GET, value = "/map/index")
+    /**
+     * Cette méthode retourne à la maps les infrastructures, les chemins et l'adresse de l'utilisateur à afficher
+     * Pour cela, il faut lister les infrastructures pour pouvoir les envoyer, comme pour les chemins et l'adresse (qui est unique car il n'y en a qu'une)
+     * La fonction model.addAttribute envoie les informations à la jsp maps/index
+     * @param model
+     * @return
+     */
     public String index(final ModelMap model) {
     	
     	String markersInfra = "var infra = [";
@@ -27,8 +40,8 @@ public class MapsController {
 		//System.out.println(markersInfra);
 		model.addAttribute("markerInfra", markersInfra);
 		
-		/*
-		String chemin = "";
+
+		String chemin = "[";
 		List<Chemins> chemins = Chemins.findAllCheminses();
 			for (Iterator<Chemins> it = chemins.iterator(); it.hasNext();) {
 				Chemins chem = (Chemins) it.next();
@@ -36,7 +49,7 @@ public class MapsController {
 				List<Double> lat = chem.getLatitude();
 				List<Double> lng = chem.getLongitude();
 				
-				chemin += "var chemLatLng = [";
+				chemin += "[";
 					for (int i=0; i<lat.size(); i++){
 						Double lati = lat.get(i);
 						Double longi = lng.get(i);
@@ -44,12 +57,26 @@ public class MapsController {
 								+ lati
 								+ ","
 								+ longi
-								+")];";
+								+"),";
 					}
-							}
+					chemin += "new google.maps.LatLng(0,0)]\n";
+		}
+		chemin += "];";
 			
     	model.addAttribute("cheminsPedestres",chemin);
-    	System.out.println(chemin);*/
+    	
+
+		List<Adresse> adresse = Adresse.findAllAdresses();
+		for (Iterator<Adresse> ite = adresse.iterator(); ite.hasNext();) {
+			Adresse ad = (Adresse) ite.next();
+				Double latUtil = ad.getLatitude();
+				Double longUtil = ad.getLongitude();
+				model.addAttribute("latitudeUtilisateur",latUtil);
+				model.addAttribute("longitudeUtilisateur",longUtil);
+		}
+		
+    		
+    	//System.out.println(chemin);
         return "maps/index";
     }
 }
