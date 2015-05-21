@@ -29,7 +29,7 @@ public class MapsController {
 	 */
 	public String index(final ModelMap model) {
 
-		String markersInfra = "var infra = [";
+		String markersInfra = "";
 		List<Infrastructures> infrastructures = Infrastructures
 				.findAllInfrastructureses();
 		for (Iterator<Infrastructures> i = infrastructures.iterator(); i
@@ -39,7 +39,7 @@ public class MapsController {
 					+ infrastructure.getLatitude() + ","
 					+ infrastructure.getLongitude() + "],";
 		}
-		markersInfra += "[' ',0,0]];";
+		markersInfra += "[' ',0,0]";
 
 		System.out.println("Markers Infra in Controller: "+markersInfra);
 		model.addAttribute("markerInfra", markersInfra);
@@ -60,8 +60,9 @@ public class MapsController {
 			}
 			chemin += "new google.maps.LatLng(0,0)]\n";
 		}
-		chemin += "];";
-
+		chemin += "]";
+		
+		System.out.println(chemin);
 		model.addAttribute("cheminsPedestres", chemin);
 
 		List<Adresse> adresse = Adresse.findAllAdresses();
@@ -71,9 +72,8 @@ public class MapsController {
 			Double longUtil = ad.getLongitude();
 			model.addAttribute("latitudeUtilisateur", latUtil);
 			model.addAttribute("longitudeUtilisateur", longUtil);
-			//System.out.println("Localisation utilisateur: "+latUtil + " , " + longUtil );
+			System.out.println("Localisation utilisateur: "+latUtil + " , " + longUtil );
 		}
-		//System.out.println(chemin);
 		return "maps/index";
 	}
 }
