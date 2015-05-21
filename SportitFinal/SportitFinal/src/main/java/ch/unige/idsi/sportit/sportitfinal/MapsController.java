@@ -41,7 +41,7 @@ public class MapsController {
 		}
 		markersInfra += "[' ',0,0]];";
 
-		// System.out.println(markersInfra);
+		System.out.println(markersInfra);
 		model.addAttribute("markerInfra", markersInfra);
 
 		String chemin = "[";
@@ -71,9 +71,9 @@ public class MapsController {
 			Double longUtil = ad.getLongitude();
 			model.addAttribute("latitudeUtilisateur", latUtil);
 			model.addAttribute("longitudeUtilisateur", longUtil);
+			System.out.println("Localisation utilisateur: "+latUtil + " , " + longUtil );
 		}
-
-		// System.out.println(chemin);
+		System.out.println(chemin);
 		return "maps/index";
 	}
 }

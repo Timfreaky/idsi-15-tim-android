@@ -36,7 +36,6 @@ p {
 	color: #483D8B;
 	margin-left: 20px; 
 	position: absolute;
-	font-family: "Arial";
 }
 .welcome {
 	padding-top: 10px;
@@ -46,9 +45,8 @@ p {
 	font-size: 15px;
 }
 .about {
-	width: 520px;
 	padding-top: 10px;
-	padding-left: 15px;
+	padding-left: 85px;
 	padding-right: 15px;
 	padding-bottom: 10px;
 	font-size: 12px;
@@ -60,13 +58,14 @@ a{
 button {
 	width: 15em;
 	height: 1.5em;
+	padding-left: 10px;
 }
 form {
 	padding-top: 20px;
 	padding-bottom: 10px;
-	padding-left: 40px;
+	padding-left: 100px;
 	color:#483D8B;
-	font-size: 16px;
+	font-size: 14px;
 }
 </style>
 
