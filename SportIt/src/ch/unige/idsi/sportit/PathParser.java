@@ -15,15 +15,22 @@ import com.google.android.gms.maps.model.LatLng;
 
 /**
  * @author Timothy McGarry & Florine Monnier
- * @version 0.1
+ * @version 1.0
  */
 public class PathParser {
 
 	public PathParser() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
+	
+	/**
+	 * Méthode qui parse le fichier docInf.kml pour récupérer les coordonnées qui forment un chemin. 
+	 * Les coordonnées sont stockées dans une arraylist d'une arraylist de LatLng (allTracks).
+	 * Jsoup est une librairie importée pour le parser
+	 * 
+	 * @param stream
+	 * @return allTracks
+	 */
 	public ArrayList<ArrayList<LatLng>> getCoordinateArrays(InputStream stream) {
 		ArrayList<ArrayList<LatLng>> allTracks = new ArrayList<ArrayList<LatLng>>();
 
@@ -33,14 +40,15 @@ public class PathParser {
 			InputStream json = stream;
 			BufferedReader in = new BufferedReader(new InputStreamReader(json));
 			String str;
-			String buffer;
 			while ((str = in.readLine()) != null) {
 				buf.append(str);
 			}
 
 			in.close();
 			String html = buf.toString();
+			//Jsoup comme parser
 			Document doc = Jsoup.parse(html, "", Parser.xmlParser());
+			//ArrayList de string (trackString) qui stocke les "coordinates" du document doc.kml
 			ArrayList<String> tracksString = new ArrayList<String>();
 			for (Element e : doc.select("coordinates")) {
 				tracksString.add(e.toString().replace("<coordinates>", "")
@@ -50,6 +58,7 @@ public class PathParser {
 			for (int i = 0; i < tracksString.size(); i++) {
 				ArrayList<LatLng> oneTrack = new ArrayList<LatLng>();
 				ArrayList<String> oneTrackString = new ArrayList<String>(
+						//On split la coordonnées en latitude et longitude
 						Arrays.asList(tracksString.get(i).split("\\s+")));
 				for (int k = 1; k < oneTrackString.size(); k++) {
 					LatLng latLng = new LatLng(
@@ -63,7 +72,6 @@ public class PathParser {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// System.out.println(allTracks);
 		return allTracks;
 
 	}

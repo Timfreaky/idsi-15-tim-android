@@ -1,7 +1,6 @@
 package ch.unige.idsi.sportit;
 
 import java.io.IOException;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -16,6 +15,7 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,8 +43,8 @@ import com.google.android.gms.maps.model.PolylineOptions;
  * activités qui lui sont liées.
  * 
  * @author Timothy McGarry & Florine Monnier
- * @version 0.1
- *
+ * @version 1.0
+ * 
  */
 public class MainActivity extends FragmentActivity implements
 		android.location.LocationListener, OnMapReadyCallback {
@@ -58,7 +58,7 @@ public class MainActivity extends FragmentActivity implements
 	final CharSequence[] items = { "Afficher les infrastructures", "Cacher les infrastructures" };
 	private MarkerOptions markerOpt;
 	private ArrayList<Marker> mArray = new ArrayList<Marker>();
-	private int my_previous_selected = -1;
+	private int save_radio = -1;
 	private Dialog dialogBienvenu;
 	private Dialog dialogAbout;
 	private Button buttonAbout;
@@ -87,12 +87,10 @@ public class MainActivity extends FragmentActivity implements
 		map.setMyLocationEnabled(true);
 		map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 		CameraPosition cameraPosition = new CameraPosition.Builder()
-				.target(new LatLng(46.177349, 6.124060)) // Sets the center of
-															// the map to
-															// Mountain View
-				.zoom(9) // Sets the zoom
-				.build(); // Creates a CameraPosition from the builder
-		map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+				.target(new LatLng(46.177349, 6.124060)) // Détermine le centre de la carte
+				.zoom(9) // Détermine le zoom
+				.build(); // Crée une position de la caméra du builder
+		map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition)); //Anime la caméra vers la localisation de l'utilisateur
 
 		GoogleMapOptions mapOptions = new GoogleMapOptions();
 		mapOptions.compassEnabled(true).rotateGesturesEnabled(false)
@@ -112,10 +110,12 @@ public class MainActivity extends FragmentActivity implements
 			for (ArrayList<LatLng> arrayList : list) {
 				PolylineOptions rectOptions = new PolylineOptions();
 				for (LatLng latLong : arrayList) {
+					//Inversion de longitude et latitude qui sont affichées comme cela dans doc.kml
 					LatLng temp = new LatLng(latLong.longitude,
 							latLong.latitude);
 					rectOptions.add(temp);
 				}
+				//Dessiner les polylines sur la carte 
 				Polyline polyline = map.addPolyline(rectOptions);
 				polyline.setWidth(7);
 				polyline.setColor(Color.YELLOW);
@@ -188,25 +188,20 @@ public class MainActivity extends FragmentActivity implements
 
 	}
 
-	/**
-	 * 
-	 * 
-	 */
+
 	@Override
 	public void onProviderDisabled(String provider) {
 		String msg = String.format(
 				getResources().getString(R.string.provider_disabled), provider);
-		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show(); //indique à l'utilisateur s'il a désactivé la géolocalisation
 	}
 	
-	/**
-	 * 
-	 */
+
 	@Override
 	public void onProviderEnabled(String provider) {
 		String msg = String.format(
 				getResources().getString(R.string.provider_enabled), provider);
-		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show(); //indique à l'utilisateur s'il a activé la géolocalisation
 	}
 
 	@Override
@@ -235,9 +230,6 @@ public class MainActivity extends FragmentActivity implements
 
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -261,20 +253,17 @@ public class MainActivity extends FragmentActivity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_about:
-			aboutWindow();
+			aboutWindow(); //exécute la méthode aboutWindow()
 
 			break;
 
 		case R.id.menu_help:
-			startWindow();
+			startWindow();//Exécute la méthode startWindow()
 
 			break;
 		case R.id.menu_settings:
-			openAlertSettings(null);
+			openAlertSettings(null);//Exécute la méthode openAlertSettings
 
-			break;
-
-		default:
 			break;
 
 		}
@@ -282,8 +271,13 @@ public class MainActivity extends FragmentActivity implements
 	}
 
 	/**
+	 * Méthode qui crée un alert dialog qui est lancé lorsque "réglages" est cliqué. 
+	 * Dans ce dialog, il y a deux buttons radio qui permettent à l'utilisateur d'afficher ou cacher les infrastructures sportives.
+	 * On va donc instantier un objet de la classe InfrParser, afin de récupérer les données parsées et de les afficher grâce à des markers sur la map.
 	 * 
 	 * @param view
+	 * @see InfrParser
+	 * @see onOptionsItemSelected
 	 */
 	private void openAlertSettings(View view) {
 
@@ -291,46 +285,44 @@ public class MainActivity extends FragmentActivity implements
 				MainActivity.this);
 
 		alertDialogBuilder.setTitle("Réglages");
-
-		// alertDialogBuilder.setMessage("Eléments affichés");
-
-		alertDialogBuilder.setSingleChoiceItems(items, my_previous_selected,
+		
+		//Mise en place de deux boutons radio définis dans "items"
+		alertDialogBuilder.setSingleChoiceItems(items, save_radio,
 				new DialogInterface.OnClickListener() {
 
-					/**
-					 * 
-					 */
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						my_previous_selected = which;
+						// Mémorise la séléction de l'utilisateur dans la variable save_radio
+						save_radio = which;
 						switch (which) {
 						case 0:
 							InfrParser inf = new InfrParser();
 							AssetManager manag = getAssets();
 
 							try {
-
+								//Pour les coordonnées des infrastructures
 								InputStream str = manag.open("doc_inf.kml");
+								//Pour les titres des infrastructures
 								InputStream str2 = manag.open("doc_inf.kml");
 								ArrayList<LatLng> listArr = inf
-										.getCoordinateArrays(str);
+										.getCoordinateArrays(str); //On récupère l'arraylist getCoordinatesArrays de InfrParser
 								ArrayList<String> listArray = inf
-										.getNamesArrays(str2);
+										.getNamesArrays(str2); //On récupère l'arraylist getNamesArrays de InfrParser
 
 								int i = 0;
 
 								for (LatLng latLng : listArr) {
 
 									markerOpt = new MarkerOptions();
+									//Inversion de longitude et latitude 
 									LatLng tempo = new LatLng(latLng.longitude,
 											latLng.latitude);
 									markerOpt.position(tempo);
+									//On récupère chaque titre correspondant à une paire de coordonnées pour les afficher en tant que titre sur les markers
 									markerOpt.title(listArray.get(i));
 
-									System.out.println("test"
-											+ listArray.get(i));
 									Marker marker = map.addMarker(markerOpt);
+									//Nous avons créé une variable globale qui est une arraylist de marker. Cette liste est utilisée pour afficher ou cacher les infrastructures
 									mArray.add(marker);
 									i++;
 								}
@@ -342,10 +334,13 @@ public class MainActivity extends FragmentActivity implements
 
 							break;
 						case 1:
+							//On parcourt l'arraylist de marker 
 							for (Marker m : mArray) {
-
+								
+								//On supprime les markers de la carte
 								m.remove();
 							}
+							//On vide l'arraylist pour éviter de la redondance lorsque l'utilisateur souhaite de nouveau afficher les infrastructures
 							mArray.clear();
 						default:
 							break;
@@ -355,7 +350,7 @@ public class MainActivity extends FragmentActivity implements
 
 				});
 
-		// set positive button: Yes message
+
 		alertDialogBuilder.setPositiveButton("Ok",
 				new DialogInterface.OnClickListener() {
 
@@ -367,14 +362,14 @@ public class MainActivity extends FragmentActivity implements
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
 
-		// show alert
+		// Affichage de l'alertdialog
 
 		alertDialog.show();
 
 	}
 
 	/**
-	 * Méthode qui gère le dialog de bienvenue au démarrage de l'application
+	 * Méthode qui genère le dialog de bienvenue au démarrage de l'application
 	 */
 	public void startWindow() {
 		dialogBienvenu = new Dialog(this);
@@ -382,8 +377,9 @@ public class MainActivity extends FragmentActivity implements
 		dialogBienvenu.setTitle("SportIt");
 
 		TextView txt = (TextView) dialogBienvenu.findViewById(R.id.infoTxtView);
-		txt.setText(Html.fromHtml(getString(R.string.Bienvenue)));
-		txt.setMovementMethod(ScrollingMovementMethod.getInstance());
+		txt.setText(Html.fromHtml(getString(R.string.Bienvenue))); //On récupère le string de strings.xml qui affiche du HTML.
+		txt.setMovementMethod(ScrollingMovementMethod.getInstance()); //Permet au textview de permettre le scroll
+		txt.setMovementMethod(LinkMovementMethod.getInstance()); // Etant donné qu'il y a un hyperlien dans le text HTML, ceci est nécessaire pour qu'il soit clickable
 
 		buttonInfo = (Button) dialogBienvenu.findViewById(R.id.buttonInfoClose);
 		buttonInfo.setOnClickListener(new View.OnClickListener() {
@@ -396,7 +392,6 @@ public class MainActivity extends FragmentActivity implements
 		});
 
 		dialogBienvenu.show();
-		// dialogBienvenu.setCanceledOnTouchOutside(true);
 	}
 
 	/**
@@ -410,9 +405,9 @@ public class MainActivity extends FragmentActivity implements
 
 		TextView aboutTxt = (TextView) dialogAbout.findViewById(R.id.aboutView);
 		aboutTxt.setText(Html.fromHtml(getString(R.string.About)));
+		aboutTxt.setMovementMethod(LinkMovementMethod.getInstance());//Etant donné qu'il y a un hyperlien dans le text HTML, ceci est nécessaire pour qu'il soit clickable
 
 		dialogAbout.show();
-		//dialogAbout.setCanceledOnTouchOutside(true);
 
 		buttonAbout = (Button) dialogAbout.findViewById(R.id.buttonClose);
 		buttonAbout.setOnClickListener(new View.OnClickListener() {

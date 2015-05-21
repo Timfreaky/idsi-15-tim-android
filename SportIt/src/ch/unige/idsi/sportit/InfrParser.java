@@ -15,13 +15,13 @@ import com.google.android.gms.maps.model.LatLng;
 
 /**
  * @author Timothy McGarry & Florine Monnier
- * @version 0.1
+ * @version 1.0
  */
 public class InfrParser {
 
 	public InfrParser() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	/**
@@ -41,15 +41,14 @@ public class InfrParser {
 			InputStream json = stream;
 			BufferedReader in = new BufferedReader(new InputStreamReader(json));
 			String string;
-			String buffer;
 			while ((string = in.readLine()) != null) {
 				buff.append(string);
 			}
 
 			in.close();
 			String html = buff.toString();
-			Document doc = Jsoup.parse(html, "", Parser.xmlParser());
-			ArrayList<String> tracksString = new ArrayList<String>();
+			Document doc = Jsoup.parse(html, "", Parser.xmlParser()); //Jsoup comme parser
+			ArrayList<String> tracksString = new ArrayList<String>(); //Arraylist de coordonnées
 
 			for (Element e : doc.select("coordinates")) {
 				tracksString.add(e.toString().replace("<coordinates>", "")
@@ -90,7 +89,6 @@ public class InfrParser {
 			InputStream json = stream;
 			BufferedReader in = new BufferedReader(new InputStreamReader(json));
 			String string;
-			String buffer;
 			while ((string = in.readLine()) != null) {
 				buffe.append(string);
 			}
