@@ -45,7 +45,6 @@ html, body {
 
 	<script type="text/javascript">
 	//<![CDATA[
-		
 			function initialize() {
 
 			var mapOptions = {
@@ -59,9 +58,31 @@ html, body {
 			var marker = new google.maps.Marker({
 				map : map,
 				title : 'ME',
-				position : new google.maps.LatLng("${latitudeUtilisateur}","${longitudeUtilisateur}")		
-			
+				position : new google.maps.LatLng("${latitudeUtilisateur}","${longitudeUtilisateur}")
 			});
+			
+			
+			var marker0 = new google.maps.Marker({
+				map : map,
+				position : new google.maps.LatLng("${latInfra0}","${lngInfra0}")
+			});
+			var marker1 = new google.maps.Marker({
+				map : map,
+				position : new google.maps.LatLng("${latInfra1}","${lngInfra1}")
+			});
+			var marker2 = new google.maps.Marker({
+				map : map,
+				position : new google.maps.LatLng("${latInfra2}","${lngInfra2}")
+			});
+			var marker3 = new google.maps.Marker({
+				map : map,
+				position : new google.maps.LatLng("${latInfra3}","${lngInfra3}")
+			});
+			var marker4 = new google.maps.Marker({
+				map : map,
+				position : new google.maps.LatLng("${latInfra4}","${lngInfra4}")
+			});
+			}
 
 		google.maps.event.addDomListener(window, 'load', initialize);
 		//]]>
