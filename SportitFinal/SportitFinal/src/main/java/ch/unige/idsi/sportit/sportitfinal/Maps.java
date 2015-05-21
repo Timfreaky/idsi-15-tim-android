@@ -7,23 +7,11 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooToString
 @RooJpaActiveRecord
 /**
- * Cette classe est le model de l'adresse de l'utilisateur
+ * Model Maps
  * 
- * @author Florine Monnier & Timothy McGarry
+ * @author Florine et Tim
  * @version 1.0
  *
  */
-public class Adresse {
-
-    /**
-     */
-    private String adresse;
-
-    /**
-     */
-    private double latitude;
-
-    /**
-     */
-    private double longitude;
+public class Maps {
 }

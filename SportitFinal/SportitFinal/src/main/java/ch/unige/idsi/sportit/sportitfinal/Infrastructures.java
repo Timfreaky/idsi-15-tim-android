@@ -6,6 +6,14 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord
+/**
+ * 
+ * Model pour les Infrastructures
+ * 
+ * @author Florine et Tim
+ * @version 1.0
+ *
+ */
 public class Infrastructures {
 
     private String name;

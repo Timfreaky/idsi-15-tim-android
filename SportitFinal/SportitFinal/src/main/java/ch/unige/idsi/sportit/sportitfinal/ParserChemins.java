@@ -20,6 +20,10 @@ import org.jsoup.parser.Parser;
 
 /**
  * Servlet implementation class ParserChemins
+ * Cette servlet parse le kml pour reprendre les chemins
+ * 
+ * @author Florine et Tim
+ * @version 1.0
  */
 public class ParserChemins extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -32,15 +36,19 @@ public class ParserChemins extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 	/**
+	 * Deux arrayList sont créées pour contenir la liste des latitudes d'un chemins et la liste des longitudes
+	 * Le kml est parsé pour reprendre les coordonnées
+	 * des objets de chemins sont insérés dans le model Chemin grâce à 
+	 * Chemins chemin = new Chemins();
+			chemin.setLatitude(allTracksLatitude.get(i));
+			chemin.setLongitude(allTracksLongitude.get(i));
+			chemin.persist();
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		ArrayList<ArrayList<Double>> allTracksLatitude = new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> allTracksLongitude = new ArrayList<ArrayList<Double>>();
 
 		// Reprise du document kml à parser
 		URL urlkml = new URL("http://sportitfinal.cfapps.io/doc.kml");
@@ -61,6 +69,10 @@ public class ParserChemins extends HttpServlet {
 			tracksString.add(e.toString().replace("<coordinates>", "")
 					.replace("</coordinates>", ""));
 		}
+		//Déclaration des listes de latitudes et de longitudes
+		ArrayList<ArrayList<Double>> allTracksLatitude = new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> allTracksLongitude = new ArrayList<ArrayList<Double>>();
+		
 		for (int i = 0; i < tracksString.size(); i++) {
 			ArrayList<Double> oneTrackLatitude = new ArrayList<Double>();
 			ArrayList<Double> oneTrackLongitude = new ArrayList<Double>();
@@ -78,7 +90,6 @@ public class ParserChemins extends HttpServlet {
 			allTracksLongitude.add(oneTrackLongitude);
 		}
 
-		//Probleme: NotSerializableException: com.google.maps.model.LatLng
 		for (int i = 0; i < allTracksLatitude.size(); i++) {
 			Chemins chemin = new Chemins();
 			chemin.setLatitude(allTracksLatitude.get(i));
@@ -86,15 +97,6 @@ public class ParserChemins extends HttpServlet {
 			chemin.persist();
 		
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }
