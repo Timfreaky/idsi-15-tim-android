@@ -29,7 +29,7 @@ public class MapsController {
 	 */
 	public String index(final ModelMap model) {
 
-		String markersInfra = "var infra = [";
+		/*String markersInfra = "";
 		List<Infrastructures> infrastructures = Infrastructures
 				.findAllInfrastructureses();
 		for (Iterator<Infrastructures> i = infrastructures.iterator(); i
@@ -39,11 +39,56 @@ public class MapsController {
 					+ infrastructure.getLatitude() + ","
 					+ infrastructure.getLongitude() + "],";
 		}
-		markersInfra += "[' ',0,0]];";
+		markersInfra += "[' ',0,0]";
 
 		System.out.println("Markers Infra in Controller: "+markersInfra);
-		model.addAttribute("markerInfra", markersInfra);
-
+		model.addAttribute("markerInfra", markersInfra);*/
+		
+		List<Infrastructures> infrastructures = Infrastructures.findInfrastructuresEntries(0, 5);
+		Infrastructures infrastructure; 
+			//for (int i=0; i<=4;i++){
+				infrastructure = infrastructures.get(0);
+				String nameInfra = infrastructure.getName();
+				model.addAttribute("nameInfra0", nameInfra);
+				Double latInfra = infrastructure.getLatitude();
+				model.addAttribute("latInfra0", latInfra);
+				Double lngInfra = infrastructure.getLongitude();
+				model.addAttribute("lngInfra0", lngInfra);
+				System.out.println(nameInfra + latInfra + lngInfra);
+				infrastructure = infrastructures.get(1);
+				String nameInfra1 = infrastructure.getName();
+				model.addAttribute("nameInfra1", nameInfra1);
+				Double latInfra1 = infrastructure.getLatitude();
+				model.addAttribute("latInfra1", latInfra1);
+				Double lngInfra1 = infrastructure.getLongitude();
+				model.addAttribute("lngInfra1", lngInfra1);
+				System.out.println(nameInfra1 + latInfra1 + lngInfra1);
+				String nameInfra2 = infrastructure.getName();
+				model.addAttribute("nameInfra2", nameInfra2);
+				Double latInfra2 = infrastructure.getLatitude();
+				model.addAttribute("latInfra2", latInfra2);
+				Double lngInfra2 = infrastructure.getLongitude();
+				model.addAttribute("lngInfra2", lngInfra2);
+				System.out.println(nameInfra2 + latInfra2 + lngInfra2);
+				String nameInfra3 = infrastructure.getName();
+				model.addAttribute("nameInfra2", nameInfra3);
+				Double latInfra3 = infrastructure.getLatitude();
+				model.addAttribute("latInfra3", latInfra3);
+				Double lngInfra3 = infrastructure.getLongitude();
+				model.addAttribute("lngInfra3", lngInfra3);
+				System.out.println(nameInfra3 + latInfra3 + lngInfra3);
+				String nameInfra4 = infrastructure.getName();
+				model.addAttribute("nameInfra4", nameInfra4);
+				Double latInfra4 = infrastructure.getLatitude();
+				model.addAttribute("latInfra4", latInfra4);
+				Double lngInfra4 = infrastructure.getLongitude();
+				model.addAttribute("lngInfra4", lngInfra4);
+				System.out.println(nameInfra4 + latInfra4 + lngInfra4);
+				
+			//}
+		//List<Infrastructures> infrastructure2 = Infrastructures.findInfrastructures(1);
+		
+			/*
 		String chemin = "[";
 		List<Chemins> chemins = Chemins.findAllCheminses();
 		for (Iterator<Chemins> it = chemins.iterator(); it.hasNext();) {
@@ -60,9 +105,10 @@ public class MapsController {
 			}
 			chemin += "new google.maps.LatLng(0,0)]\n";
 		}
-		chemin += "];";
-
-		model.addAttribute("cheminsPedestres", chemin);
+		chemin += "]";
+		
+		System.out.println(chemin);
+		model.addAttribute("cheminsPedestres", chemin);*/
 
 		List<Adresse> adresse = Adresse.findAllAdresses();
 		for (Iterator<Adresse> ite = adresse.iterator(); ite.hasNext();) {
@@ -71,9 +117,8 @@ public class MapsController {
 			Double longUtil = ad.getLongitude();
 			model.addAttribute("latitudeUtilisateur", latUtil);
 			model.addAttribute("longitudeUtilisateur", longUtil);
-			//System.out.println("Localisation utilisateur: "+latUtil + " , " + longUtil );
+			System.out.println("Localisation utilisateur: "+latUtil + " , " + longUtil );
 		}
-		//System.out.println(chemin);
 		return "maps/index";
 	}
 }
