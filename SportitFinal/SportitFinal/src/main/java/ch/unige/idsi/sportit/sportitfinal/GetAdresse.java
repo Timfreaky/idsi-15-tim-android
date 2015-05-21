@@ -3,7 +3,6 @@ package ch.unige.idsi.sportit.sportitfinal;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -65,7 +64,8 @@ public class GetAdresse extends HttpServlet {
 				+ ", latitude :" + adresse.getLatitude() + ", longitude: "
 				+ adresse.getLongitude());
 		
-		this.getServletContext().getRequestDispatcher( "http://sportitfinal.cfapps.io/maps/index" ).forward( request, response );
+		response.sendRedirect("/maps/index");
+		//this.getServletContext().getRequestDispatcher( "/WEB-INF/views/maps/index.jspx" ).forward( request, response );
 		/*RequestDispatcher dispatcher = request.getRequestDispatcher("");
 	    dispatcher.forward(request, response);*/
 	}

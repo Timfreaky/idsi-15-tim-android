@@ -1,53 +1,103 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:spring="http://www.springframework.org/tags"
 	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" version="2.0">
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 	<jsp:output omit-xml-declaration="yes" />
 	<util:panel id="title" title="SPORTIT">
 	</util:panel>
+
 	<style type="text/css">
-.map-canvas
-{
-	height: 80%;
-	margin: 10px;
-	padding: 10px;
-}
-#menu {
-	display:none !important;
-}
-#header {
-	display:none !important;
-}
-#footer {
-	display:none !important;
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
+#map-canvas {
+	height: 400px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#menu {
+	display: none;
+}
+
+#header {
+	display: none;
+}
+
+#footer {
+	display: none;
+}
 </style>
+<div id="map-canvas"></div>
 
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDsPwIiGKObAuN__4epHRFgwWZvrgMsaE"></script>
+
 	<script type="text/javascript">
 		var x = null;
 	</script>
+
 	<script type="text/javascript">
 	//<![CDATA[
 		function initialize() {
 
 			var mapOptions = {
-				center : {
-					lat : "${latitudeUtilisateur}",
-					lng : "${longitudeUtilisateur}"
-				},
-				zoom : 6
+				zoom : 16,
+				center : new google.maps.LatLng("${latitudeUtilisateur}","${longitudeUtilisateur}")
 			};
+			
+			var marker = new google.maps.Marker({
+				position : new google.maps.LatLng("${latitudeUtilisateur}","${longitudeUtilisateur}"),
+				map : map,
+				title : "ME"
+			});
+			
+			//var infra = "${markerInfra}";
+			//console.log("MarkersInfra in jspx: "+infra);
+			
 
-			var map = new google.maps.Map(
-					document.getElementById('map-canvas'), mapOptions);
+			/*for (var i = 0; i < infra.length; i++) {
+				var infrastructure = infra[i];
+				if (infrastructure[0]==null || infrastructure[1]==null || infrastructure[2]==null){
+					console.log(infra[i]);
+				}
+				else{
+					var marker = new google.maps.Marker({
+						position : new google.maps.LatLng(infrastructure[1],
+								infrastructure[2]),
+						map : map,
+						title : infrastructure[0]
+					});
+				}
+			}*/
+			
+			//var chemins = "${cheminsPedestres}";
+			//console.log(chemins);
+			/*
+			for (var j = 0; j<chemins.length; j++) {
+			var chemin = chemins[j]+";";
+			var flightPath = 
+				new google.maps.Polyline({ 
+					path: chemin, 
+					geodesic: true, 
+					strokeColor: '#FF0000', 
+					strokeOpacity: 1.0, 
+					strokeWeight: 2 
+					}); 
+				flightPath.setMap(map);
+			}*/
+			
+			var map = new google.maps.Map(document.getElementById('map-canvas'),
+					mapOptions);
 		}
+
 		google.maps.event.addDomListener(window, 'load', initialize);
 		//]]>
-	</script>
-	<div id="map-canvas"></div>
+		</script>
 </div>
 
